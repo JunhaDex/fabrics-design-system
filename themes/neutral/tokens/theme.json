@@ -1,0 +1,20 @@
+{
+  "sem": {
+    "radius": {
+      "$type": "dimension",
+      "control": { "$value": "{radius.md}" },
+      "surface": { "$value": "{radius.lg}" }
+    },
+    "shadow": {
+      "$type": "shadow",
+      "raised": { "$value": "{shadow.sm}" },
+      "overlay": { "$value": "{shadow.lg}" }
+    },
+    "spacing": {
+      "$type": "dimension",
+      "control-x": { "$value": "{spacing.3}" },
+      "control-y": { "$value": "{spacing.2}" },
+      "stack": { "$value": "{spacing.4}" }
+    }
+  }
+}

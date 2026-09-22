@@ -1,0 +1,38 @@
+{
+  "sem": {
+    "color": {
+      "$type": "color",
+      "surface": { "$value": "{color.white}", "$description": "페이지 기본 배경" },
+      "surface-raised": { "$value": "{color.gray.50}", "$description": "카드/패널 등 한 단계 올라온 면" },
+      "surface-overlay": { "$value": "{color.white}", "$description": "모달/팝오버 면" },
+      "on-surface": { "$value": "{color.gray.900}", "$description": "surface 위 기본 텍스트" },
+      "on-surface-muted": { "$value": "{color.gray.500}", "$description": "surface 위 보조 텍스트" },
+      "brand": { "$value": "{color.blue.600}", "$description": "주요 액션/강조" },
+      "brand-hover": { "$value": "{color.blue.700}" },
+      "on-brand": { "$value": "{color.white}", "$description": "brand 위 텍스트" },
+      "border": { "$value": "{color.gray.200}", "$description": "기본 구분선/테두리" },
+      "border-strong": { "$value": "{color.gray.300}" },
+      "ring": { "$value": "{color.blue.500}", "$description": "포커스 링" },
+      "danger": { "$value": "{color.red.600}" },
+      "on-danger": { "$value": "{color.white}" },
+      "success": { "$value": "{color.green.600}" },
+      "warning": { "$value": "{color.amber.500}" }
+    },
+    "radius": {
+      "$type": "dimension",
+      "control": { "$value": "{radius.md}", "$description": "버튼/입력 등 컨트롤" },
+      "surface": { "$value": "{radius.lg}", "$description": "카드/모달 등 면" }
+    },
+    "shadow": {
+      "$type": "shadow",
+      "raised": { "$value": "{shadow.sm}" },
+      "overlay": { "$value": "{shadow.lg}" }
+    },
+    "spacing": {
+      "$type": "dimension",
+      "control-x": { "$value": "{spacing.3}", "$description": "컨트롤 좌우 패딩 (밀도)" },
+      "control-y": { "$value": "{spacing.2}", "$description": "컨트롤 상하 패딩 (밀도)" },
+      "stack": { "$value": "{spacing.4}", "$description": "수직 스택 기본 간격 (밀도)" }
+    }
+  }
+}

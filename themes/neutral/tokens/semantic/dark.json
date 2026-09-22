@@ -1,0 +1,22 @@
+{
+  "sem": {
+    "color": {
+      "$type": "color",
+      "surface": { "$value": "{color.gray.950}" },
+      "surface-raised": { "$value": "{color.gray.900}" },
+      "surface-overlay": { "$value": "{color.gray.900}" },
+      "on-surface": { "$value": "{color.gray.50}" },
+      "on-surface-muted": { "$value": "{color.gray.400}" },
+      "brand": { "$value": "{color.blue.500}" },
+      "brand-hover": { "$value": "{color.blue.400}" },
+      "on-brand": { "$value": "{color.white}" },
+      "border": { "$value": "{color.gray.800}" },
+      "border-strong": { "$value": "{color.gray.700}" },
+      "ring": { "$value": "{color.blue.400}" },
+      "danger": { "$value": "{color.red.500}" },
+      "on-danger": { "$value": "{color.white}" },
+      "success": { "$value": "{color.green.500}" },
+      "warning": { "$value": "{color.amber.500}" }
+    }
+  }
+}

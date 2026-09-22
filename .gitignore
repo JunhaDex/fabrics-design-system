@@ -1,0 +1,12 @@
+.idea
+node_modules/
+dist/
+.turbo/
+storybook-static/
+*.log
+.DS_Store
+.env
+.env.*
+!.env.example
+.claude/settings.local.json
+*.local.json

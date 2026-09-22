@@ -1,0 +1,21 @@
+packages:
+  - packages/*
+  - themes/*
+  - apps/*
+
+# 워크스페이스 전체가 공유하는 의존성 버전 (pnpm catalog).
+# 각 패키지의 package.json에서는 "catalog:" 로 참조한다.
+catalog:
+  react: ^19.3.0
+  react-dom: ^19.3.0
+  '@types/react': ^19.2.0
+  '@types/react-dom': ^19.2.0
+  # TypeScript 7은 tsdown의 .d.ts 생성(rolldown-plugin-dts)과 아직 호환되지 않아 6.x로 고정한다.
+  typescript: ^6.0.0
+  radix-ui: ^1.6.7
+  tailwind-variants: ^3.3.1
+  tailwindcss: ^4.3.3
+  '@tailwindcss/vite': ^4.3.3
+  tsdown: ^0.23.0
+  style-dictionary: ^5.5.5
+  vitest: ^5.0.1

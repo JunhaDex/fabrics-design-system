@@ -1,0 +1,36 @@
+{
+  "name": "@junhadex/core",
+  "version": "0.0.0",
+  "description": "fabrics 디자인 시스템 컴포넌트 (Radix + tailwind-variants). 테마와 무관하며 토큰 슬롯만 참조한다.",
+  "type": "module",
+  "sideEffects": false,
+  "files": ["dist"],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsdown",
+    "dev": "tsdown --watch",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@junhadex/tokens": "workspace:*",
+    "radix-ui": "catalog:",
+    "tailwind-variants": "catalog:"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "tsdown": "catalog:",
+    "typescript": "catalog:"
+  }
+}

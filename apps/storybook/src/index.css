@@ -1,0 +1,4 @@
+@import "tailwindcss";
+@import "@junhadex/theme-neutral/theme.css";
+/* core 의 dist 에 포함된 Tailwind 클래스를 스캔한다. 소비 프로젝트도 동일하게 추가해야 한다. */
+@source "../node_modules/@junhadex/core/dist";
