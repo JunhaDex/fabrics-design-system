@@ -1,6 +1,6 @@
 {
   "name": "@junhadex/tokens",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "fabrics 디자인 시스템 원시 토큰 + 의미 슬롯 정의 + Style Dictionary 빌드 설정",
   "type": "module",
   "files": ["dist", "tokens", "sd.config.js"],

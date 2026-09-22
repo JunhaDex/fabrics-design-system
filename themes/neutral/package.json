@@ -1,6 +1,6 @@
 {
   "name": "@junhadex/theme-neutral",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "fabrics 기준 테마. 의미 슬롯에 값을 채우고 light/dark 모드를 제공한다.",
   "type": "module",
   "files": ["dist", "tokens", "src"],
