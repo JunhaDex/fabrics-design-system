@@ -1,5 +1,11 @@
 # @junhadex/tokens
 
+## 0.1.1
+
+### Patch Changes
+
+- [`7decb97`](https://github.com/JunhaDex/fabrics-design-system/commit/7decb976701956ef425029b39a67e25e5b2fe4b2) Thanks [@JunhaDex](https://github.com/JunhaDex)! - 패키지별 README 추가 (레지스트리 페이지에 설치·사용법 노출)
+
 ## 0.1.0
 
 ### Minor Changes
