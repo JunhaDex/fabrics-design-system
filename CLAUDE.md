@@ -22,7 +22,7 @@ React 컴포넌트 라이브러리를 npm 패키지로 제공한다.
 | 번들러 | tsdown (`dts: true`) |
 | 개발/문서 | Storybook 10 (Vite builder, docs/test/a11y). 로컬 `storybook dev` 기준, 자체 호스트 예정 |
 | 테스트 | Vitest (Storybook Vitest addon) |
-| 버전/배포 | changesets + GitHub Actions `changesets/action`, GitHub Packages (`@junhadex/*`, private) |
+| 버전/배포 | changesets + GitHub Actions `changesets/action`, GitHub Packages (`@junhadex/*`, public) |
 | 달력 | `react-day-picker` v9 (Radix에 Calendar 프리미티브가 없음) |
 
 ## 워크스페이스 구조
