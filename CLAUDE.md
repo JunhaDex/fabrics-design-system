@@ -23,7 +23,7 @@ React 컴포넌트 라이브러리를 npm 패키지로 제공한다.
 | 개발/문서 | Storybook 10 (Vite builder, docs/test/a11y). 로컬 `storybook dev` 기준, 자체 호스트 예정 |
 | 테스트 | Vitest (Storybook Vitest addon) |
 | 버전/배포 | changesets + GitHub Actions `changesets/action`, GitHub Packages (`@junhadex/*`, public) |
-| 달력 | `react-day-picker` v9 (Radix에 Calendar 프리미티브가 없음) |
+| 아이콘 | `lucide` 코어 패키지(프레임워크 무관 데이터) + core의 `<Icon>` 렌더러. `lucide-react` 미사용 |
 
 ## 워크스페이스 구조
 ```
@@ -56,8 +56,17 @@ apps/storybook       Storybook 문서 사이트 (토큰 SSOT 시각화)
   fabrics 도메인 컴포넌트 목록은 첫 소비 프로젝트 기획 시 정의한다.
 - **소비 프로젝트 계약**: Tailwind v4 필수. `@import "tailwindcss"` +
   `@import "@junhadex/theme-<name>/theme.css"` + `@source "…/@junhadex/core/dist"`.
-- **DatePicker 구성**: Radix Popover + `react-day-picker` Calendar + Input 조합.
-  Calendar의 classNames 주입으로 토큰 슬롯을 적용한다.
+- **Calendar/DatePicker**: 실사용 요구사항이 나올 때까지 구현하지 않는다.
+  첫 소비 프로젝트에서 요구사항을 구체화한 뒤 다시 디자인한다.
+- **컴포넌트 API**: props 래핑 단일 컴포넌트로 통일한다. Radix 다중 파트
+  프리미티브도 `<Select value onValueChange options={[…]} />` 형태로 감싸고,
+  컴파운드 파트는 노출하지 않는다. `icon` prop 타입은 `ReactNode`로 커스텀
+  SVG를 허용한다.
+- **Toast**: Radix Toast + 자체 명령형 `toast()` API와 `<ToastProvider>`로
+  구현한다. sonner는 쓰지 않는다. 근거는 `../../docs/common-design-todo.md`
+  "결정 사항" 참고.
+- **모션**: `sem.duration.*`, `sem.ease.*` 토큰 슬롯으로 제어한다. 테마가
+  모션을 교체할 수 있어야 한다.
 - **접근성·브라우저**: WCAG 2.2 AA, evergreen 최근 2개 메이저.
 
 ## 컴포넌트 완료 기준 (Definition of Done)
