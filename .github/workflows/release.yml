@@ -30,9 +30,30 @@ jobs:
       - run: pnpm install --frozen-lockfile
 
       - uses: changesets/action@v2
+        id: changesets
         with:
           version-script: pnpm version-packages
           publish-script: pnpm release
           github-token: ${{ secrets.GITHUB_TOKEN }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Push repo release tag
+        if: steps.changesets.outputs.published == 'true'
+        env:
+          PUBLISHED: ${{ steps.changesets.outputs['published-packages'] }}
+        run: |
+          version=$(echo "$PUBLISHED" | jq -r '.[] | select(.name == "@junhadex/core") | .version')
+          if [ -z "$version" ]; then
+            echo "@junhadex/core was not published; skipping repo tag"
+            exit 0
+          fi
+          tag="v$version"
+          if git ls-remote --exit-code --tags origin "refs/tags/$tag" >/dev/null 2>&1; then
+            echo "$tag already exists; skipping"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git tag -a "$tag" -m "$tag"
+          git push origin "$tag"
