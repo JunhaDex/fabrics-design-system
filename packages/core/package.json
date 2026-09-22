@@ -1,6 +1,6 @@
 {
   "name": "@junhadex/core",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "fabrics 디자인 시스템 컴포넌트 (Radix + tailwind-variants). 테마와 무관하며 토큰 슬롯만 참조한다.",
   "type": "module",
   "sideEffects": false,
