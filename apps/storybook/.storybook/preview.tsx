@@ -34,8 +34,9 @@ const preview: Preview = {
       useEffect(() => {
         document.documentElement.dataset.mode = globals.mode
       }, [globals.mode])
+      // 면·전경색은 index.css 가 body 에 건다(Portal 콘텐츠 때문). 여기는 여백만.
       return (
-        <div className="bg-surface p-6 text-on-surface">
+        <div className="p-6">
           <Story />
         </div>
       )

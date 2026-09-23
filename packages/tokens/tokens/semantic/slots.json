@@ -18,6 +18,10 @@
         "$value": "{color.white}",
         "$description": "입력 컨트롤의 면. 페이지 배경과 구분될 수 있어야 한다"
       },
+      "track": {
+        "$value": "{color.gray.200}",
+        "$description": "슬라이더/프로그레스의 레일. 채워진 부분 뒤에 깔린다"
+      },
       "on-surface": {
         "$value": "{color.gray.900}",
         "$description": "surface 위 기본 텍스트"
