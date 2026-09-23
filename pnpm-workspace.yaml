@@ -11,7 +11,7 @@ catalog:
   '@types/react': ^19.2.0
   '@types/react-dom': ^19.2.0
   # TypeScript 7은 tsdown의 .d.ts 생성(rolldown-plugin-dts)과 아직 호환되지 않아 6.x로 고정한다.
-  typescript: ^6.0.0
+  typescript: ~6.0.0
   radix-ui: ^1.6.7
   tailwind-variants: ^3.3.1
   tailwindcss: ^4.3.3
@@ -19,3 +19,4 @@ catalog:
   tsdown: ^0.23.0
   style-dictionary: ^5.5.5
   vitest: ^5.0.1
+  eslint: ^10.11.0

@@ -10,3 +10,4 @@ storybook-static/
 !.env.example
 .claude/settings.local.json
 *.local.json
+.eslintcache

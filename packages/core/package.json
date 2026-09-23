@@ -4,7 +4,9 @@
   "description": "fabrics 디자인 시스템 컴포넌트 (Radix + tailwind-variants). 테마와 무관하며 토큰 슬롯만 참조한다.",
   "type": "module",
   "sideEffects": false,
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -14,7 +16,8 @@
   "scripts": {
     "build": "tsdown",
     "dev": "tsdown --watch",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint . --max-warnings 0 --cache"
   },
   "dependencies": {
     "@junhadex/tokens": "workspace:*",
@@ -26,8 +29,10 @@
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
+    "eslint": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:",
     "tsdown": "catalog:",
