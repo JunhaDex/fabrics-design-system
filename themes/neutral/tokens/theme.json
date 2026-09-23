@@ -28,6 +28,9 @@
       },
       "stack": {
         "$value": "{spacing.4}"
+      },
+      "field-gap": {
+        "$value": "{spacing.2}"
       }
     },
     "duration": {

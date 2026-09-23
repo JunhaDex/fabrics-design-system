@@ -14,6 +14,10 @@
         "$value": "{color.white}",
         "$description": "모달/팝오버 면"
       },
+      "field": {
+        "$value": "{color.white}",
+        "$description": "입력 컨트롤의 면. 페이지 배경과 구분될 수 있어야 한다"
+      },
       "on-surface": {
         "$value": "{color.gray.900}",
         "$description": "surface 위 기본 텍스트"
@@ -90,6 +94,10 @@
       "stack": {
         "$value": "{spacing.4}",
         "$description": "수직 스택 기본 간격 (밀도)"
+      },
+      "field-gap": {
+        "$value": "{spacing.2}",
+        "$description": "Field 내부 레이블·컨트롤·메시지 간격 (밀도)"
       }
     },
     "duration": {
