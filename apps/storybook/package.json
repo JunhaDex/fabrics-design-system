@@ -31,6 +31,7 @@
     "@vitest/browser-playwright": "^5.0.1",
     "@vitest/coverage-v8": "^5.0.1",
     "eslint": "catalog:",
+    "lucide": "catalog:",
     "playwright": "^1.63.0",
     "storybook": "^10.6.0",
     "tailwindcss": "catalog:",

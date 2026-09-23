@@ -18,6 +18,9 @@ catalogs:
     eslint:
       specifier: ^10.11.0
       version: 10.11.0
+    lucide:
+      specifier: 1.47.0
+      version: 1.47.0
     radix-ui:
       specifier: ^1.6.7
       version: 1.6.7
@@ -120,6 +123,9 @@ importers:
       eslint:
         specifier: 'catalog:'
         version: 10.11.0(jiti@2.7.0)
+      lucide:
+        specifier: 'catalog:'
+        version: 1.47.0
       playwright:
         specifier: ^1.63.0
         version: 1.63.0
@@ -144,6 +150,9 @@ importers:
       '@junhadex/tokens':
         specifier: workspace:*
         version: link:../tokens
+      lucide:
+        specifier: 'catalog:'
+        version: 1.47.0
       radix-ui:
         specifier: 'catalog:'
         version: 1.6.7(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
@@ -3160,6 +3169,9 @@ packages:
 
   lru-cache@5.1.1:
     resolution: {integrity: sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w==}
+
+  lucide@1.47.0:
+    resolution: {integrity: sha512-gJoVJM5fvpBDGZTvhpJS9IEurz85HbD+wgOlCkXCIw35tHrqTxSdIYUN9sXvs7Aw3NCl67A+nlotNyoU4u7zOQ==}
 
   lz-string@1.5.0:
     resolution: {integrity: sha512-h5bgJWpxJNswbU7qCrV0tIKQCaS3blPDrqKWx+QxzuzL1zGUzij9XCWLrSLsJPu5t+eWA/ycetzYAO5IOMcWAQ==}
@@ -6813,6 +6825,8 @@ snapshots:
   lru-cache@5.1.1:
     dependencies:
       yallist: 3.1.1
+
+  lucide@1.47.0: {}
 
   lz-string@1.5.0: {}
 

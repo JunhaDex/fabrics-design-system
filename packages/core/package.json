@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "@junhadex/tokens": "workspace:*",
+    "lucide": "catalog:",
     "radix-ui": "catalog:",
     "tailwind-variants": "catalog:"
   },
