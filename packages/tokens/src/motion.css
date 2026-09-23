@@ -1,0 +1,23 @@
+/*
+ * Radix 의 data-[state] 전환에 쓰는 enter/exit 애니메이션.
+ * 지속 시간과 가속도는 의미 슬롯을 참조하므로 테마가 교체할 수 있고,
+ * prefers-reduced-motion 처리도 슬롯 한 곳에서 걸린다.
+ */
+@keyframes enter {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+}
+
+@keyframes exit {
+  to {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+}
+
+@theme {
+  --animate-enter: enter var(--sem-duration-fast) var(--sem-ease-enter);
+  --animate-exit: exit var(--sem-duration-fast) var(--sem-ease-exit);
+}

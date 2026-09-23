@@ -6,12 +6,15 @@
   "files": [
     "dist",
     "tokens",
+    "src",
     "sd.config.js"
   ],
   "exports": {
     "./sd.config.js": "./sd.config.js",
     "./primitives.css": "./dist/primitives.css",
-    "./bridge.css": "./dist/bridge.css"
+    "./bridge.css": "./dist/bridge.css",
+    "./motion.css": "./src/motion.css",
+    "./reduced-motion.css": "./dist/reduced-motion.css"
   },
   "scripts": {
     "build": "node build.js"
