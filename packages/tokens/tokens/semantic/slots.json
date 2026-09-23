@@ -3,10 +3,16 @@
     "color": {
       "$type": "color",
       "surface": { "$value": "{color.white}", "$description": "페이지 기본 배경" },
-      "surface-raised": { "$value": "{color.gray.50}", "$description": "카드/패널 등 한 단계 올라온 면" },
+      "surface-raised": {
+        "$value": "{color.gray.50}",
+        "$description": "카드/패널 등 한 단계 올라온 면"
+      },
       "surface-overlay": { "$value": "{color.white}", "$description": "모달/팝오버 면" },
       "on-surface": { "$value": "{color.gray.900}", "$description": "surface 위 기본 텍스트" },
-      "on-surface-muted": { "$value": "{color.gray.500}", "$description": "surface 위 보조 텍스트" },
+      "on-surface-muted": {
+        "$value": "{color.gray.500}",
+        "$description": "surface 위 보조 텍스트"
+      },
       "brand": { "$value": "{color.blue.600}", "$description": "주요 액션/강조" },
       "brand-hover": { "$value": "{color.blue.700}" },
       "on-brand": { "$value": "{color.white}", "$description": "brand 위 텍스트" },

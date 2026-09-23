@@ -36,7 +36,7 @@ const preview: Preview = {
         document.documentElement.dataset.mode = globals.mode
       }, [globals.mode])
       return (
-        <div className="bg-surface text-on-surface p-6">
+        <div className="bg-surface p-6 text-on-surface">
           <Story />
         </div>
       )
