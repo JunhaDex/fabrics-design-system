@@ -11,6 +11,7 @@ export {
   type RadioGroupProps,
   type RadioOption,
 } from './radio-group/radio-group'
+export { Popover, popover, type PopoverProps } from './popover/popover'
 export { Progress, progress, type ProgressProps } from './progress/progress'
 export { Select, select, type SelectProps, type SelectOption } from './select/select'
 export { Skeleton, skeleton, type SkeletonProps } from './skeleton/skeleton'
@@ -18,6 +19,15 @@ export { Slider, slider, type SliderProps } from './slider/slider'
 export { Spinner, spinner, type SpinnerProps } from './spinner/spinner'
 export { Switch, switchStyles, type SwitchProps } from './switch/switch'
 export { Textarea, textarea, type TextareaProps } from './textarea/textarea'
+export { ToastProvider, toastStyles, type ToastProviderProps } from './toast/toast'
+export {
+  toast,
+  toastStore,
+  type ToastItem,
+  type ToastOptions,
+  type ToastTone,
+} from './toast/toast-store'
+export { Tooltip, tooltip, type TooltipProps } from './tooltip/tooltip'
 export { Toggle, toggle, type ToggleProps } from './toggle/toggle'
 export {
   ToggleGroup,

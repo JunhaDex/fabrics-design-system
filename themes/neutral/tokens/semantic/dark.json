@@ -11,6 +11,12 @@
       "surface-overlay": {
         "$value": "{color.gray.900}"
       },
+      "surface-inverse": {
+        "$value": "{color.gray.50}"
+      },
+      "on-surface-inverse": {
+        "$value": "{color.gray.900}"
+      },
       "field": {
         "$value": "{color.gray.900}"
       },
