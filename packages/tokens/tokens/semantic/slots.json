@@ -63,6 +63,38 @@
       },
       "warning": {
         "$value": "{color.amber.500}"
+      },
+      "info-subtle": {
+        "$value": "{color.blue.50}",
+        "$description": "정보 알림의 은은한 면"
+      },
+      "on-info-subtle": {
+        "$value": "{color.blue.700}",
+        "$description": "info-subtle 위 텍스트·아이콘"
+      },
+      "success-subtle": {
+        "$value": "{color.green.50}",
+        "$description": "성공 알림의 은은한 면"
+      },
+      "on-success-subtle": {
+        "$value": "{color.green.700}",
+        "$description": "success-subtle 위 텍스트·아이콘"
+      },
+      "warning-subtle": {
+        "$value": "{color.amber.50}",
+        "$description": "경고 알림의 은은한 면"
+      },
+      "on-warning-subtle": {
+        "$value": "{color.amber.700}",
+        "$description": "warning-subtle 위 텍스트·아이콘"
+      },
+      "danger-subtle": {
+        "$value": "{color.red.50}",
+        "$description": "오류 알림의 은은한 면"
+      },
+      "on-danger-subtle": {
+        "$value": "{color.red.700}",
+        "$description": "danger-subtle 위 텍스트·아이콘"
       }
     },
     "radius": {

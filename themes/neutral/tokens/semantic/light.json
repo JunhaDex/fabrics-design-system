@@ -52,6 +52,30 @@
       },
       "warning": {
         "$value": "{color.amber.500}"
+      },
+      "info-subtle": {
+        "$value": "{color.blue.50}"
+      },
+      "on-info-subtle": {
+        "$value": "{color.blue.700}"
+      },
+      "success-subtle": {
+        "$value": "{color.green.50}"
+      },
+      "on-success-subtle": {
+        "$value": "{color.green.700}"
+      },
+      "warning-subtle": {
+        "$value": "{color.amber.50}"
+      },
+      "on-warning-subtle": {
+        "$value": "{color.amber.700}"
+      },
+      "danger-subtle": {
+        "$value": "{color.red.50}"
+      },
+      "on-danger-subtle": {
+        "$value": "{color.red.700}"
       }
     }
   }
