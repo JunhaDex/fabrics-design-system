@@ -3,11 +3,18 @@
   "version": "0.1.1",
   "description": "fabrics 디자인 시스템 원시 토큰 + 의미 슬롯 정의 + Style Dictionary 빌드 설정",
   "type": "module",
-  "files": ["dist", "tokens", "sd.config.js"],
+  "files": [
+    "dist",
+    "tokens",
+    "src",
+    "sd.config.js"
+  ],
   "exports": {
     "./sd.config.js": "./sd.config.js",
     "./primitives.css": "./dist/primitives.css",
-    "./bridge.css": "./dist/bridge.css"
+    "./bridge.css": "./dist/bridge.css",
+    "./motion.css": "./src/motion.css",
+    "./reduced-motion.css": "./dist/reduced-motion.css"
   },
   "scripts": {
     "build": "node build.js"

@@ -15,10 +15,25 @@ export const modeConfig = (mode, files) => ({
 export const configs = [
   modeConfig('light', [
     // :root 에는 모든 슬롯(테마 기본값 + light 색상)을 채운다.
-    { destination: 'root.css', format: 'css/mode-variables', filter: (t) => t.path[0] === 'sem', options: { selector: ':root' } },
-    { destination: 'mode-light.css', format: 'css/mode-variables', filter: fromFile('light.json'), options: { selector: '[data-mode="light"]' } },
+    {
+      destination: 'root.css',
+      format: 'css/mode-variables',
+      filter: (t) => t.path[0] === 'sem',
+      options: { selector: ':root' },
+    },
+    {
+      destination: 'mode-light.css',
+      format: 'css/mode-variables',
+      filter: fromFile('light.json'),
+      options: { selector: '[data-mode="light"]' },
+    },
   ]),
   modeConfig('dark', [
-    { destination: 'mode-dark.css', format: 'css/mode-variables', filter: fromFile('dark.json'), options: { selector: '[data-mode="dark"]' } },
+    {
+      destination: 'mode-dark.css',
+      format: 'css/mode-variables',
+      filter: fromFile('dark.json'),
+      options: { selector: '[data-mode="dark"]' },
+    },
   ]),
 ]

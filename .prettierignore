@@ -1,0 +1,10 @@
+dist
+storybook-static
+.turbo
+node_modules
+pnpm-lock.yaml
+
+# Markdown 은 제외한다. Prettier 의 표 정렬이 한글(전각) 폭을 잘못 계산해
+# 열이 오히려 어긋나고, CLAUDE.md·README 는 줄바꿈을 손으로 관리한다.
+# CHANGELOG.md 는 changesets 가 생성한다.
+*.md

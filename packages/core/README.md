@@ -32,17 +32,70 @@ Tailwind v4가 필수다. 앱의 CSS 진입점에 아래를 추가한다.
 @source "../node_modules/@junhadex/core/dist";
 ```
 
+Toast를 쓴다면 앱 루트를 `<ToastProvider>`로 감싼다. 토스트는 이 안에서만 화면에
+나타난다.
+
+```tsx
+import { ToastProvider } from '@junhadex/core'
+
+<ToastProvider>{children}</ToastProvider>
+```
+
+## 컴포넌트
+
+**폼**: Label, Input, Textarea, Field, Checkbox, RadioGroup, Switch, Select,
+Slider, Toggle, ToggleGroup
+
+**피드백**: Alert, Toast, Tooltip, Popover, Progress, Spinner, Skeleton
+
+**그 외**: Button, Icon
+
 ## 사용
 
 ```tsx
-import { Button } from '@junhadex/core'
+import { Button, Field, Input, Select, toast } from '@junhadex/core'
 
 <Button variant="primary" size="md">저장</Button>
 <Button asChild variant="ghost"><a href="/docs">문서</a></Button>
 ```
 
-`variant`: `primary` | `secondary` | `danger` | `ghost` (기본 `primary`)
-`size`: `sm` | `md` | `lg` (기본 `md`)
+Radix 다중 파트 프리미티브도 props를 받는 단일 컴포넌트로 감쌌다. 컴파운드
+파트는 노출하지 않는다.
+
+```tsx
+<Select options={[{ value: 'cotton', label: '면' }]} placeholder="소재 선택" />
+```
+
+`Field`가 레이블·설명·오류의 접근성 연결을 대신한다. 컨트롤에 id를 직접 줄
+필요가 없고, `error`를 주면 `aria-invalid`가 함께 선다.
+
+```tsx
+<Field label="이름" description="실명을 입력하세요." error="이름은 필수입니다." required>
+  <Input />
+</Field>
+```
+
+토스트는 명령형으로 띄운다. 동시에 3개까지 보이고 넘치면 오래된 것부터 밀려난다.
+
+```tsx
+toast.success('저장되었습니다')
+toast.danger('저장하지 못했습니다', { description: '잠시 후 다시 시도하세요.' })
+```
+
+## 규칙
 
 `className`은 레이아웃 속성(margin, width, grid 배치 등)만 병합된다. 색상·radius
 등 룩앤필은 토큰과 variant prop으로만 제어한다.
+
+폼 컨트롤의 오류 상태는 별도 prop이 아니라 `aria-invalid`로 제어한다. 단독
+사용과 `Field` 경유가 같은 경로를 탄다.
+
+아이콘은 `lucide` 코어 데이터를 `<Icon>`이 그린다. `icon` prop은 `ReactNode`라
+커스텀 SVG도 받는다.
+
+```tsx
+import { Icon } from '@junhadex/core'
+import { Check } from 'lucide'
+
+<Icon node={Check} />
+```

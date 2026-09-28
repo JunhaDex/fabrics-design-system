@@ -14,11 +14,15 @@
     "storybook": "turbo run storybook",
     "changeset": "changeset",
     "version-packages": "changeset version",
-    "release": "turbo run build && changeset publish"
+    "release": "turbo run build && changeset publish",
+    "format": "prettier --write . --cache",
+    "format:check": "prettier --check . --cache"
   },
   "devDependencies": {
     "@changesets/changelog-github": "^1.0.1",
     "@changesets/cli": "^3.0.3",
+    "prettier": "^3.9.8",
+    "prettier-plugin-tailwindcss": "^0.8.1",
     "turbo": "^2.11.2"
   }
 }

@@ -26,13 +26,35 @@ StyleDictionary.registerFormat({
   format: ({ dictionary }) => `@theme {\n${dictionary.allTokens.map(line).join('\n')}\n}\n`,
 })
 
+export const isDuration = (t) => isSlot(t) && t.path[1] === 'duration'
+
 // slots → @theme inline (--color-surface: var(--sem-color-surface))
+// Tailwind v4 에 --duration-* 네임스페이스가 없어 duration 슬롯만 유틸리티가
+// 생성되지 않는다. 같은 이름의 정적 유틸리티를 직접 정의한다
+// (내장 duration-150 / duration-[3s] 와 공존한다).
+// 내장 duration-* 는 --tw-duration 과 transition-duration 을 함께 설정하고
+// transition-* 유틸리티가 그 변수를 읽는다. 같은 계약을 맞춘다.
 StyleDictionary.registerFormat({
   name: 'css/tailwind-bridge',
+  format: ({ dictionary }) => {
+    const vars = dictionary.allTokens.map((t) => `  --${t.name.slice(4)}: var(--${t.name});`)
+    const utilities = dictionary.allTokens
+      .filter(isDuration)
+      .map(
+        (t) =>
+          `@utility ${t.name.slice(4)} {\n  --tw-duration: var(--${t.name});\n  transition-duration: var(--${t.name});\n}`,
+      )
+    return `@theme inline {\n${vars.join('\n')}\n}\n\n${utilities.join('\n\n')}\n`
+  },
+})
+
+// 모션 무력화는 슬롯 한 곳에서 건다. 테마가 채운 값보다 뒤에 와야 이긴다.
+StyleDictionary.registerFormat({
+  name: 'css/reduced-motion',
   format: ({ dictionary }) =>
-    `@theme inline {\n${dictionary.allTokens
-      .map((t) => `  --${t.name.slice(4)}: var(--${t.name});`)
-      .join('\n')}\n}\n`,
+    `@media (prefers-reduced-motion: reduce) {\n  :root {\n${dictionary.allTokens
+      .map((t) => `    --${t.name}: 1ms;`)
+      .join('\n')}\n  }\n}\n`,
 })
 
 // slots 값 → selector 블록 (:root / [data-mode="..."]) 런타임 전환용

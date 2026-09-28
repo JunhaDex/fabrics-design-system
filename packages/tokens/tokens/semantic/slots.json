@@ -2,37 +2,177 @@
   "sem": {
     "color": {
       "$type": "color",
-      "surface": { "$value": "{color.white}", "$description": "페이지 기본 배경" },
-      "surface-raised": { "$value": "{color.gray.50}", "$description": "카드/패널 등 한 단계 올라온 면" },
-      "surface-overlay": { "$value": "{color.white}", "$description": "모달/팝오버 면" },
-      "on-surface": { "$value": "{color.gray.900}", "$description": "surface 위 기본 텍스트" },
-      "on-surface-muted": { "$value": "{color.gray.500}", "$description": "surface 위 보조 텍스트" },
-      "brand": { "$value": "{color.blue.600}", "$description": "주요 액션/강조" },
-      "brand-hover": { "$value": "{color.blue.700}" },
-      "on-brand": { "$value": "{color.white}", "$description": "brand 위 텍스트" },
-      "border": { "$value": "{color.gray.200}", "$description": "기본 구분선/테두리" },
-      "border-strong": { "$value": "{color.gray.300}" },
-      "ring": { "$value": "{color.blue.500}", "$description": "포커스 링" },
-      "danger": { "$value": "{color.red.600}" },
-      "on-danger": { "$value": "{color.white}" },
-      "success": { "$value": "{color.green.600}" },
-      "warning": { "$value": "{color.amber.500}" }
+      "surface": {
+        "$value": "{color.white}",
+        "$description": "페이지 기본 배경"
+      },
+      "surface-raised": {
+        "$value": "{color.gray.50}",
+        "$description": "카드/패널 등 한 단계 올라온 면"
+      },
+      "surface-overlay": {
+        "$value": "{color.white}",
+        "$description": "모달/팝오버 면"
+      },
+      "surface-inverse": {
+        "$value": "{color.gray.900}",
+        "$description": "툴팁처럼 배경을 뒤집어 강조하는 면"
+      },
+      "on-surface-inverse": {
+        "$value": "{color.gray.50}",
+        "$description": "surface-inverse 위 텍스트"
+      },
+      "field": {
+        "$value": "{color.white}",
+        "$description": "입력 컨트롤의 면. 페이지 배경과 구분될 수 있어야 한다"
+      },
+      "track": {
+        "$value": "{color.gray.200}",
+        "$description": "슬라이더/프로그레스의 레일. 채워진 부분 뒤에 깔린다"
+      },
+      "on-surface": {
+        "$value": "{color.gray.900}",
+        "$description": "surface 위 기본 텍스트"
+      },
+      "on-surface-muted": {
+        "$value": "{color.gray.500}",
+        "$description": "surface 위 보조 텍스트"
+      },
+      "brand": {
+        "$value": "{color.blue.600}",
+        "$description": "주요 액션/강조"
+      },
+      "brand-hover": {
+        "$value": "{color.blue.700}"
+      },
+      "on-brand": {
+        "$value": "{color.white}",
+        "$description": "brand 위 텍스트"
+      },
+      "border": {
+        "$value": "{color.gray.200}",
+        "$description": "기본 구분선/테두리"
+      },
+      "border-strong": {
+        "$value": "{color.gray.300}"
+      },
+      "ring": {
+        "$value": "{color.blue.500}",
+        "$description": "포커스 링"
+      },
+      "danger": {
+        "$value": "{color.red.600}"
+      },
+      "on-danger": {
+        "$value": "{color.white}"
+      },
+      "success": {
+        "$value": "{color.green.600}"
+      },
+      "warning": {
+        "$value": "{color.amber.500}"
+      },
+      "info-subtle": {
+        "$value": "{color.blue.50}",
+        "$description": "정보 알림의 은은한 면"
+      },
+      "on-info-subtle": {
+        "$value": "{color.blue.700}",
+        "$description": "info-subtle 위 텍스트·아이콘"
+      },
+      "success-subtle": {
+        "$value": "{color.green.50}",
+        "$description": "성공 알림의 은은한 면"
+      },
+      "on-success-subtle": {
+        "$value": "{color.green.700}",
+        "$description": "success-subtle 위 텍스트·아이콘"
+      },
+      "warning-subtle": {
+        "$value": "{color.amber.50}",
+        "$description": "경고 알림의 은은한 면"
+      },
+      "on-warning-subtle": {
+        "$value": "{color.amber.700}",
+        "$description": "warning-subtle 위 텍스트·아이콘"
+      },
+      "danger-subtle": {
+        "$value": "{color.red.50}",
+        "$description": "오류 알림의 은은한 면"
+      },
+      "on-danger-subtle": {
+        "$value": "{color.red.700}",
+        "$description": "danger-subtle 위 텍스트·아이콘"
+      }
     },
     "radius": {
       "$type": "dimension",
-      "control": { "$value": "{radius.md}", "$description": "버튼/입력 등 컨트롤" },
-      "surface": { "$value": "{radius.lg}", "$description": "카드/모달 등 면" }
+      "control": {
+        "$value": "{radius.md}",
+        "$description": "버튼/입력 등 컨트롤"
+      },
+      "surface": {
+        "$value": "{radius.lg}",
+        "$description": "카드/모달 등 면"
+      }
     },
     "shadow": {
       "$type": "shadow",
-      "raised": { "$value": "{shadow.sm}" },
-      "overlay": { "$value": "{shadow.lg}" }
+      "raised": {
+        "$value": "{shadow.sm}"
+      },
+      "overlay": {
+        "$value": "{shadow.lg}"
+      }
     },
     "spacing": {
       "$type": "dimension",
-      "control-x": { "$value": "{spacing.3}", "$description": "컨트롤 좌우 패딩 (밀도)" },
-      "control-y": { "$value": "{spacing.2}", "$description": "컨트롤 상하 패딩 (밀도)" },
-      "stack": { "$value": "{spacing.4}", "$description": "수직 스택 기본 간격 (밀도)" }
+      "control-x": {
+        "$value": "{spacing.3}",
+        "$description": "컨트롤 좌우 패딩 (밀도)"
+      },
+      "control-y": {
+        "$value": "{spacing.2}",
+        "$description": "컨트롤 상하 패딩 (밀도)"
+      },
+      "stack": {
+        "$value": "{spacing.4}",
+        "$description": "수직 스택 기본 간격 (밀도)"
+      },
+      "field-gap": {
+        "$value": "{spacing.2}",
+        "$description": "Field 내부 레이블·컨트롤·메시지 간격 (밀도)"
+      }
+    },
+    "duration": {
+      "$type": "duration",
+      "fast": {
+        "$value": "{duration.instant}",
+        "$description": "툴팁/토글 등 즉각적인 피드백"
+      },
+      "base": {
+        "$value": "{duration.quick}",
+        "$description": "팝오버/드롭다운 등 기본 전환"
+      },
+      "slow": {
+        "$value": "{duration.moderate}",
+        "$description": "모달/토스트 등 큰 면의 전환"
+      }
+    },
+    "ease": {
+      "$type": "cubicBezier",
+      "standard": {
+        "$value": "{ease.in-out}",
+        "$description": "상태 전환 기본"
+      },
+      "enter": {
+        "$value": "{ease.out}",
+        "$description": "나타날 때 — 빠르게 시작해 부드럽게 멈춘다"
+      },
+      "exit": {
+        "$value": "{ease.in}",
+        "$description": "사라질 때 — 천천히 시작해 빠르게 빠진다"
+      }
     }
   }
 }

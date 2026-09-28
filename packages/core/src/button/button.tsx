@@ -15,7 +15,9 @@ export const button = tv({
   variants: {
     variant: {
       primary: { root: 'bg-brand text-on-brand hover:bg-brand-hover' },
-      secondary: { root: 'bg-surface-raised text-on-surface border border-border hover:border-border-strong' },
+      secondary: {
+        root: 'border border-border bg-surface-raised text-on-surface hover:border-border-strong',
+      },
       danger: { root: 'bg-danger text-on-danger' },
       ghost: { root: 'text-on-surface hover:bg-surface-raised' },
     },

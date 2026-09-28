@@ -1,4 +1,14 @@
-@import "tailwindcss";
-@import "@junhadex/theme-neutral/theme.css";
+@import 'tailwindcss';
+@import '@junhadex/theme-neutral/theme.css';
 /* core 의 dist 에 포함된 Tailwind 클래스를 스캔한다. 소비 프로젝트도 동일하게 추가해야 한다. */
-@source "../node_modules/@junhadex/core/dist";
+@source '../node_modules/@junhadex/core/dist';
+
+/*
+ * Radix Portal 콘텐츠(Select/Tooltip/Popover/Toast)는 래퍼 div 가 아니라
+ * body 직속으로 렌더된다. 면과 전경색을 body 에 걸어야 포털 안에서도
+ * 기본 색이 잡힌다.
+ */
+body {
+  background-color: var(--color-surface);
+  color: var(--color-on-surface);
+}
