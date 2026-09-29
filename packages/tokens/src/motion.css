@@ -21,3 +21,31 @@
   --animate-enter: enter var(--sem-duration-fast) var(--sem-ease-enter);
   --animate-exit: exit var(--sem-duration-fast) var(--sem-ease-exit);
 }
+
+/*
+ * Accordion 의 열림/닫힘. Radix 가 Content 에
+ * --radix-accordion-content-height 를 넣어 주므로 auto 높이를 전환할 수 있다.
+ * 이 변수는 Content 요소에만 있으므로 keyframes 도 Content 에 걸어야 한다.
+ */
+@keyframes accordion-down {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+
+@keyframes accordion-up {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
+}
+
+@theme {
+  --animate-accordion-down: accordion-down var(--sem-duration-base) var(--sem-ease-enter);
+  --animate-accordion-up: accordion-up var(--sem-duration-base) var(--sem-ease-exit);
+}

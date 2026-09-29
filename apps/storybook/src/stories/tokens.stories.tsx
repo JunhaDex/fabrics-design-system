@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
+import type { CSSProperties } from 'react'
 import { expect, within } from 'storybook/test'
 
 const colors = [
@@ -39,7 +40,7 @@ export const Colors: StoryObj = {
   ),
 }
 
-const motion = [
+const motion: { testId: string; label: string; className: string; style?: CSSProperties }[] = [
   // Tailwind 는 소스에서 완성된 클래스 문자열을 스캔한다. `duration-${d}` 처럼
   // 동적으로 조합하면 유틸리티가 생성되지 않으므로 리터럴로 적는다.
   { testId: 'fast', label: 'duration-fast', className: 'duration-fast transition-all' },
@@ -49,6 +50,14 @@ const motion = [
   { testId: 'enter', label: 'ease-enter', className: 'ease-enter transition-all' },
   { testId: 'exit', label: 'ease-exit', className: 'ease-exit transition-all' },
   { testId: 'anim', label: 'animate-enter', className: 'animate-enter' },
+  // accordion-* keyframes 는 Radix Content 의 --radix-accordion-content-height 를
+  // 읽는다. 여기서는 Radix 없이 값만 주입해 유틸리티 생성과 슬롯 참조를 확인한다.
+  {
+    testId: 'accordion',
+    label: 'animate-accordion-down',
+    className: 'animate-accordion-down overflow-hidden',
+    style: { '--radix-accordion-content-height': '40px' } as CSSProperties,
+  },
 ]
 
 /**
@@ -60,7 +69,7 @@ export const Motion: StoryObj = {
   render: () => (
     <div className="flex flex-col gap-2 text-sm">
       {motion.map((m) => (
-        <div key={m.testId} className={m.className} data-testid={m.testId}>
+        <div key={m.testId} className={m.className} style={m.style} data-testid={m.testId}>
           <code>{m.label}</code>
         </div>
       ))}
@@ -83,6 +92,10 @@ export const Motion: StoryObj = {
     // keyframes + --animate-* 가 슬롯을 참조하는지 확인한다.
     await expect(styleOf('anim').animationName).toBe('enter')
     await expect(styleOf('anim').animationDuration).toBe('0.075s')
+
+    // accordion 슬롯은 --sem-duration-base(150ms)를 참조한다.
+    await expect(styleOf('accordion').animationName).toBe('accordion-down')
+    await expect(styleOf('accordion').animationDuration).toBe('0.15s')
   },
 }
 
