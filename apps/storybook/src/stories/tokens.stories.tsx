@@ -30,7 +30,7 @@ export const Colors: StoryObj = {
         <div key={c} className="contents">
           <div
             className="size-8 rounded-control border border-border"
-            style={{ background: `var(--color-${c})` }}
+            style={{ background: `var(--sem-color-${c})` }}
           />
           <code>--color-{c}</code>
         </div>
@@ -83,5 +83,132 @@ export const Motion: StoryObj = {
     // keyframes + --animate-* 가 슬롯을 참조하는지 확인한다.
     await expect(styleOf('anim').animationName).toBe('enter')
     await expect(styleOf('anim').animationDuration).toBe('0.075s')
+  },
+}
+
+const tones = ['neutral', 'brand', 'success', 'warning', 'danger', 'info'] as const
+const appearances = ['solid', 'subtle', 'outline'] as const
+type Tone = (typeof tones)[number]
+type Appearance = (typeof appearances)[number]
+
+/** `rgb(r, g, b)` / `rgba(...)` 문자열의 상대 휘도. */
+const luminance = (color: string) =>
+  (color.match(/[\d.]+/g) ?? [])
+    .slice(0, 3)
+    .map((v) => Number(v) / 255)
+    .map((v) => (v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4))
+    .reduce((sum, v, i) => sum + [0.2126, 0.7152, 0.0722][i] * v, 0)
+
+const contrast = (a: string, b: string) => {
+  const [hi, lo] = [luminance(a), luminance(b)].sort((x, y) => y - x)
+  return (hi + 0.05) / (lo + 0.05)
+}
+
+// Tailwind 는 소스의 완성된 클래스 문자열만 스캔하므로 24키를 리터럴로 적는다.
+// Badge 가 소비할 집합과 동일하다.
+const toneClasses: Record<Tone, Record<Appearance, string>> = {
+  neutral: {
+    solid: 'bg-neutral text-on-neutral',
+    subtle: 'bg-neutral-subtle text-on-neutral-subtle',
+    outline: 'border border-neutral text-on-neutral-subtle',
+  },
+  brand: {
+    solid: 'bg-brand text-on-brand',
+    subtle: 'bg-brand-subtle text-on-brand-subtle',
+    outline: 'border border-brand text-on-brand-subtle',
+  },
+  success: {
+    solid: 'bg-success text-on-success',
+    subtle: 'bg-success-subtle text-on-success-subtle',
+    outline: 'border border-success text-on-success-subtle',
+  },
+  warning: {
+    solid: 'bg-warning text-on-warning',
+    subtle: 'bg-warning-subtle text-on-warning-subtle',
+    outline: 'border border-warning text-on-warning-subtle',
+  },
+  danger: {
+    solid: 'bg-danger text-on-danger',
+    subtle: 'bg-danger-subtle text-on-danger-subtle',
+    outline: 'border border-danger text-on-danger-subtle',
+  },
+  info: {
+    solid: 'bg-info text-on-info',
+    subtle: 'bg-info-subtle text-on-info-subtle',
+    outline: 'border border-info text-on-info-subtle',
+  },
+}
+
+/**
+ * 톤 24키 매트릭스(6톤 × solid/subtle/outline). Badge 가 그대로 소비하는 집합이며,
+ * 테마를 추가할 때 같은 키의 값만 다시 선언하면 된다.
+ */
+export const Tones: StoryObj = {
+  render: () => (
+    <div className="grid grid-cols-[auto_1fr_1fr_1fr] items-center gap-2 text-sm">
+      <div />
+      {appearances.map((a) => (
+        <code key={a}>{a}</code>
+      ))}
+      {tones.map((tone) => (
+        <div key={tone} className="contents">
+          <code>{tone}</code>
+          {appearances.map((appearance) => (
+            <div
+              key={appearance}
+              data-testid={`${tone}-${appearance}`}
+              className={`rounded-control px-control-x py-control-y ${toneClasses[tone][appearance]}`}
+            >
+              {tone}
+            </div>
+          ))}
+        </div>
+      ))}
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const root = document.documentElement
+    const initial = root.dataset.mode
+    // 텍스트 4.5:1, outline 테두리는 비텍스트 대비 3:1 (WCAG 2.2 AA).
+    const failures: string[] = []
+
+    for (const mode of ['light', 'dark']) {
+      root.dataset.mode = mode
+      const surface = getComputedStyle(document.body).backgroundColor
+      for (const tone of tones) {
+        for (const appearance of appearances) {
+          const style = getComputedStyle(canvas.getByTestId(`${tone}-${appearance}`))
+          // outline 은 면을 칠하지 않으므로 글자는 surface 위에 놓인다.
+          const behind = appearance === 'outline' ? surface : style.backgroundColor
+          const text = contrast(style.color, behind)
+          if (text < 4.5) failures.push(`${mode} ${tone} ${appearance} text ${text.toFixed(2)}`)
+          if (appearance === 'outline') {
+            const border = contrast(style.borderTopColor, surface)
+            if (border < 3) failures.push(`${mode} ${tone} outline border ${border.toFixed(2)}`)
+          }
+        }
+      }
+    }
+
+    root.dataset.mode = initial ?? 'light'
+    await expect(failures).toEqual([])
+  },
+}
+
+/**
+ * 표 셀 패딩 슬롯. Tailwind v4 의 `--spacing-*` 네임스페이스에 이름 있는 키를
+ * 넣으면 `px-cell-x` 같은 유틸리티가 생성되는지 확인한다.
+ */
+export const Density: StoryObj = {
+  render: () => (
+    <div className="inline-block bg-surface-raised px-cell-x py-cell-y" data-testid="cell">
+      <code>px-cell-x py-cell-y</code>
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const style = getComputedStyle(within(canvasElement).getByTestId('cell'))
+    await expect(style.paddingLeft).toBe('16px')
+    await expect(style.paddingTop).toBe('8px')
   },
 }

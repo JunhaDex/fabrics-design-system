@@ -38,6 +38,12 @@
       "on-brand": {
         "$value": "{color.white}"
       },
+      "brand-subtle": {
+        "$value": "{color.blue.50}"
+      },
+      "on-brand-subtle": {
+        "$value": "{color.blue.700}"
+      },
       "border": {
         "$value": "{color.gray.200}"
       },
@@ -54,10 +60,28 @@
         "$value": "{color.white}"
       },
       "success": {
-        "$value": "{color.green.600}"
+        "$value": "{color.green.700}"
+      },
+      "on-success": {
+        "$value": "{color.white}"
       },
       "warning": {
-        "$value": "{color.amber.500}"
+        "$value": "{color.amber.600}"
+      },
+      "on-warning": {
+        "$value": "{color.gray.950}"
+      },
+      "info": {
+        "$value": "{color.blue.600}"
+      },
+      "on-info": {
+        "$value": "{color.white}"
+      },
+      "neutral": {
+        "$value": "{color.gray.700}"
+      },
+      "on-neutral": {
+        "$value": "{color.white}"
       },
       "info-subtle": {
         "$value": "{color.blue.50}"
@@ -82,6 +106,12 @@
       },
       "on-danger-subtle": {
         "$value": "{color.red.700}"
+      },
+      "neutral-subtle": {
+        "$value": "{color.gray.100}"
+      },
+      "on-neutral-subtle": {
+        "$value": "{color.gray.700}"
       }
     }
   }

@@ -31,6 +31,12 @@
       },
       "field-gap": {
         "$value": "{spacing.2}"
+      },
+      "cell-x": {
+        "$value": "{spacing.4}"
+      },
+      "cell-y": {
+        "$value": "{spacing.2}"
       }
     },
     "duration": {

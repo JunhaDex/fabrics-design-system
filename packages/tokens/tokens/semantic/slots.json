@@ -49,6 +49,14 @@
         "$value": "{color.white}",
         "$description": "brand 위 텍스트"
       },
+      "brand-subtle": {
+        "$value": "{color.blue.50}",
+        "$description": "brand 톤의 은은한 면. 선택된 표 행 등"
+      },
+      "on-brand-subtle": {
+        "$value": "{color.blue.700}",
+        "$description": "brand-subtle 위 텍스트·아이콘"
+      },
       "border": {
         "$value": "{color.gray.200}",
         "$description": "기본 구분선/테두리"
@@ -67,10 +75,34 @@
         "$value": "{color.white}"
       },
       "success": {
-        "$value": "{color.green.600}"
+        "$value": "{color.green.700}"
+      },
+      "on-success": {
+        "$value": "{color.white}",
+        "$description": "success 위 텍스트"
       },
       "warning": {
-        "$value": "{color.amber.500}"
+        "$value": "{color.amber.600}"
+      },
+      "on-warning": {
+        "$value": "{color.gray.950}",
+        "$description": "warning 위 텍스트. 노란 면은 흰 글자로 대비를 만들 수 없다"
+      },
+      "info": {
+        "$value": "{color.blue.600}",
+        "$description": "정보 톤 솔리드"
+      },
+      "on-info": {
+        "$value": "{color.white}",
+        "$description": "info 위 텍스트"
+      },
+      "neutral": {
+        "$value": "{color.gray.700}",
+        "$description": "중립 톤 솔리드. 강조하지 않는 배지 등"
+      },
+      "on-neutral": {
+        "$value": "{color.white}",
+        "$description": "neutral 위 텍스트"
       },
       "info-subtle": {
         "$value": "{color.blue.50}",
@@ -103,6 +135,14 @@
       "on-danger-subtle": {
         "$value": "{color.red.700}",
         "$description": "danger-subtle 위 텍스트·아이콘"
+      },
+      "neutral-subtle": {
+        "$value": "{color.gray.100}",
+        "$description": "중립 톤의 은은한 면"
+      },
+      "on-neutral-subtle": {
+        "$value": "{color.gray.700}",
+        "$description": "neutral-subtle 위 텍스트·아이콘"
       }
     },
     "radius": {
@@ -142,6 +182,14 @@
       "field-gap": {
         "$value": "{spacing.2}",
         "$description": "Field 내부 레이블·컨트롤·메시지 간격 (밀도)"
+      },
+      "cell-x": {
+        "$value": "{spacing.4}",
+        "$description": "표 셀 좌우 패딩. 열을 분리하려면 컨트롤보다 넓다 (밀도)"
+      },
+      "cell-y": {
+        "$value": "{spacing.2}",
+        "$description": "표 셀 상하 패딩. 행은 촘촘하게 둔다 (밀도)"
       }
     },
     "duration": {
