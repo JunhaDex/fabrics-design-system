@@ -14,6 +14,7 @@ export {
 export { Popover, popover, type PopoverProps } from './popover/popover'
 export { Progress, progress, type ProgressProps } from './progress/progress'
 export { Select, select, type SelectProps, type SelectOption } from './select/select'
+export { Separator, separator, type SeparatorProps } from './separator/separator'
 export { Skeleton, skeleton, type SkeletonProps } from './skeleton/skeleton'
 export { Slider, slider, type SliderProps } from './slider/slider'
 export { Spinner, spinner, type SpinnerProps } from './spinner/spinner'
