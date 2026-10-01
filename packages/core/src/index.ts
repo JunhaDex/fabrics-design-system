@@ -1,3 +1,9 @@
+export {
+  Accordion,
+  accordion,
+  type AccordionProps,
+  type AccordionItem,
+} from './accordion/accordion'
 export { Alert, alert, type AlertProps } from './alert/alert'
 export { Badge, badge, type BadgeProps } from './badge/badge'
 export { Button, button, type ButtonProps } from './button/button'
