@@ -27,6 +27,7 @@ export { Slider, slider, type SliderProps } from './slider/slider'
 export { Spinner, spinner, type SpinnerProps } from './spinner/spinner'
 export { Switch, switchStyles, type SwitchProps } from './switch/switch'
 export { Tabs, tabs, type TabsProps, type TabItem } from './tabs/tabs'
+export { Table, table, type TableProps, type TableColumn } from './table/table'
 export { Textarea, textarea, type TextareaProps } from './textarea/textarea'
 export { ToastProvider, toastStyles, type ToastProviderProps } from './toast/toast'
 export {
