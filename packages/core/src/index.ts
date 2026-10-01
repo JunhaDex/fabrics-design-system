@@ -20,6 +20,7 @@ export { Skeleton, skeleton, type SkeletonProps } from './skeleton/skeleton'
 export { Slider, slider, type SliderProps } from './slider/slider'
 export { Spinner, spinner, type SpinnerProps } from './spinner/spinner'
 export { Switch, switchStyles, type SwitchProps } from './switch/switch'
+export { Tabs, tabs, type TabsProps, type TabItem } from './tabs/tabs'
 export { Textarea, textarea, type TextareaProps } from './textarea/textarea'
 export { ToastProvider, toastStyles, type ToastProviderProps } from './toast/toast'
 export {
