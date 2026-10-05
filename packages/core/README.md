@@ -48,6 +48,8 @@ Slider, Toggle, ToggleGroup
 
 **피드백**: Alert, Toast, Tooltip, Popover, Progress, Spinner, Skeleton
 
+**데이터 표시**: Badge, Separator, Tabs, Accordion, Table, DataTable
+
 **그 외**: Button, Icon
 
 ## 사용
@@ -81,6 +83,35 @@ Radix 다중 파트 프리미티브도 props를 받는 단일 컴포넌트로 �
 toast.success('저장되었습니다')
 toast.danger('저장하지 못했습니다', { description: '잠시 후 다시 시도하세요.' })
 ```
+
+표는 `columns`/`rows`로 정의한다. `Table`은 상태가 없는 정적 표이고, `DataTable`이
+정렬·선택·페이지네이션을 붙인다. 행 식별은 `getRowId`가 필수다 — 정렬 후에도 선택이
+같은 행에 남으려면 index로는 안 된다.
+
+```tsx
+import { DataTable, type DataTableColumn } from '@junhadex/core'
+
+const columns: DataTableColumn<Fabric>[] = [
+  { key: 'code', header: '품번', cell: (row) => row.code },
+  { key: 'name', header: '품명', cell: (row) => row.name, sortValue: (row) => row.name },
+  { key: 'width', header: '폭(cm)', cell: (row) => row.width, align: 'end', sortValue: (row) => row.width },
+]
+
+<DataTable
+  aria-label="원단 목록"
+  columns={columns}
+  rows={rows}
+  getRowId={(row) => row.code}
+  selectable
+  paginated
+/>
+```
+
+`sortValue`가 있는 열만 정렬 가능하다. 페이지네이션은 클라이언트 사이드이므로
+`rows`에 전체 목록을 넘긴다. 서버가 잘라 준 한 페이지를 넘기면 다시 잘린다.
+
+접근 가능한 이름(`caption` 또는 `aria-label`)을 주면 가로 스크롤 영역이
+`role="region"`이 되어 키보드로 스크롤할 수 있다.
 
 ## 규칙
 
