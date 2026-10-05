@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import { ChevronDown, ChevronsUpDown, ChevronUp } from 'lucide'
 import { tv } from 'tailwind-variants'
+import { Checkbox } from '../checkbox/checkbox'
 import { Icon } from '../icon/icon'
 import { Table, type TableColumn, type TableProps } from '../table/table'
 import { layoutClass } from '../utils/layout-class'
@@ -33,13 +34,23 @@ export interface DataTableColumn<Row> extends TableColumn<Row> {
   sortValue?: (row: Row) => string | number
 }
 
-export interface DataTableProps<Row> extends Omit<TableProps<Row>, 'columns'> {
+export interface DataTableProps<Row> extends Omit<TableProps<Row>, 'columns' | 'isRowSelected'> {
   columns: DataTableColumn<Row>[]
   /** 제어형. `null` 은 "정렬 없음" 이라는 유효한 값이다. */
   sort?: SortState | null
   defaultSort?: SortState | null
   onSortChange?: (sort: SortState | null) => void
+  /** 선택 열을 켠다. 끄면 선택 관련 prop 은 무시된다. */
+  selectable?: boolean
+  selectedIds?: string[]
+  defaultSelectedIds?: string[]
+  onSelectedIdsChange?: (ids: string[]) => void
+  /** 행 체크박스의 접근 가능한 이름. 기본값은 `getRowId` — id 가 UUID 면 넘겨야 한다. */
+  getRowLabel?: (row: Row) => string
 }
+
+/** 사용자 열 키와 겹치지 않도록 예약한다. */
+const SELECT_KEY = '__select'
 
 const directionIcons = { asc: ChevronUp, desc: ChevronDown }
 const directionLabels = { asc: '오름차순', desc: '내림차순' }
@@ -64,17 +75,28 @@ const compareValues = (a: string | number, b: string | number) =>
 export function DataTable<Row>({
   columns,
   rows,
+  getRowId,
   sort,
   defaultSort = null,
   onSortChange,
+  selectable = false,
+  selectedIds,
+  defaultSelectedIds = [],
+  onSelectedIdsChange,
+  getRowLabel = getRowId,
   className,
   ...props
 }: DataTableProps<Row>) {
   const s = dataTable()
   const [uncontrolledSort, setUncontrolledSort] = useState<SortState | null>(defaultSort)
   const [touched, setTouched] = useState(false)
-  const controlled = sort !== undefined
-  const current = controlled ? sort : uncontrolledSort
+  const sortControlled = sort !== undefined
+  const current = sortControlled ? sort : uncontrolledSort
+
+  const [uncontrolledIds, setUncontrolledIds] = useState<string[]>(defaultSelectedIds)
+  const selectionControlled = selectedIds !== undefined
+  const ids = selectionControlled ? selectedIds : uncontrolledIds
+  const idSet = useMemo(() => new Set(ids), [ids])
 
   const sortedRows = useMemo(() => {
     if (!current) return rows
@@ -87,7 +109,7 @@ export function DataTable<Row>({
 
   const change = (next: SortState | null) => {
     setTouched(true)
-    if (!controlled) setUncontrolledSort(next)
+    if (!sortControlled) setUncontrolledSort(next)
     onSortChange?.(next)
   }
 
@@ -97,6 +119,44 @@ export function DataTable<Row>({
     : current && activeColumn
       ? `${columnLabel(activeColumn)} 기준 ${directionLabels[current.direction]} 정렬`
       : '정렬 해제'
+
+  const changeIds = (next: string[]) => {
+    if (!selectionControlled) setUncontrolledIds(next)
+    onSelectedIdsChange?.(next)
+  }
+
+  const toggleRow = (id: string) =>
+    changeIds(idSet.has(id) ? ids.filter((value) => value !== id) : [...ids, id])
+
+  // 전체선택 범위는 보이는 행이다. 페이지네이션이 붙으면 그대로 현재 페이지가 된다.
+  const visibleIds = sortedRows.map(getRowId)
+  const allVisibleSelected = visibleIds.length > 0 && visibleIds.every((id) => idSet.has(id))
+  const someVisibleSelected = !allVisibleSelected && visibleIds.some((id) => idSet.has(id))
+
+  const toggleAllVisible = () =>
+    changeIds(
+      allVisibleSelected
+        ? ids.filter((id) => !visibleIds.includes(id))
+        : [...ids, ...visibleIds.filter((id) => !idSet.has(id))],
+    )
+
+  const selectColumn: TableColumn<Row> = {
+    key: SELECT_KEY,
+    header: (
+      <Checkbox
+        aria-label="전체 선택"
+        checked={allVisibleSelected ? true : someVisibleSelected ? 'indeterminate' : false}
+        onCheckedChange={toggleAllVisible}
+      />
+    ),
+    cell: (row) => (
+      <Checkbox
+        aria-label={`${getRowLabel(row)} 선택`}
+        checked={idSet.has(getRowId(row))}
+        onCheckedChange={() => toggleRow(getRowId(row))}
+      />
+    ),
+  }
 
   const tableColumns: TableColumn<Row>[] = columns.map((column) => {
     if (!column.sortValue) return column
@@ -123,7 +183,13 @@ export function DataTable<Row>({
 
   return (
     <div className={s.root({ class: layoutClass(className) })}>
-      <Table columns={tableColumns} rows={sortedRows} {...props} />
+      <Table
+        columns={selectable ? [selectColumn, ...tableColumns] : tableColumns}
+        rows={sortedRows}
+        getRowId={getRowId}
+        isRowSelected={selectable ? (row) => idSet.has(getRowId(row)) : undefined}
+        {...props}
+      />
       <div aria-live="polite" className={s.live()}>
         {announcement}
       </div>

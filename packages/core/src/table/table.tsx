@@ -9,7 +9,11 @@ export const table = tv({
     caption: 'px-cell-x py-cell-y text-left font-medium text-on-surface',
     headerRow: 'border-b border-border',
     header: 'bg-surface-raised px-cell-x py-cell-y font-medium whitespace-nowrap text-on-surface',
-    row: 'border-b border-border last:border-0 hover:bg-surface-raised',
+    row: [
+      'border-b border-border last:border-0 hover:bg-surface-raised',
+      // 선택 색은 호버보다 뒤에 와서 이긴다. 표 전용 색 슬롯 없이 brand-subtle 을 쓴다.
+      'data-[selected]:bg-brand-subtle data-[selected]:text-on-brand-subtle',
+    ],
     cell: 'px-cell-x py-cell-y whitespace-nowrap text-on-surface',
   },
   variants: {
@@ -37,6 +41,12 @@ export interface TableProps<Row> extends Omit<ComponentProps<'table'>, 'children
   rows: Row[]
   getRowId: (row: Row) => string
   caption?: ReactNode
+  /**
+   * 선택된 행을 시각적으로 표시한다. `<tr aria-selected>` 는 쓸 수 없다 —
+   * `role="grid"` 안의 row 에만 허용되는 속성이라 일반 표에서는 ARIA 위반이다.
+   * 선택 상태 전달은 행 체크박스의 checked 가 담당한다.
+   */
+  isRowSelected?: (row: Row) => boolean
 }
 
 /**
@@ -55,6 +65,7 @@ export function Table<Row>({
   rows,
   getRowId,
   caption,
+  isRowSelected,
   className,
   ...props
 }: TableProps<Row>) {
@@ -97,7 +108,11 @@ export function Table<Row>({
         </thead>
         <tbody>
           {rows.map((row) => (
-            <tr key={getRowId(row)} className={s.row()}>
+            <tr
+              key={getRowId(row)}
+              data-selected={isRowSelected?.(row) || undefined}
+              className={s.row()}
+            >
               {columns.map((column) => (
                 <td key={column.key} className={s.cell({ align: column.align })}>
                   {column.cell(row)}
