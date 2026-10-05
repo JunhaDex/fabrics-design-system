@@ -28,6 +28,8 @@ export interface TableColumn<Row> {
   cell: (row: Row) => ReactNode
   /** 숫자 열은 `'end'`. 기본 `'start'`. */
   align?: 'start' | 'end'
+  /** `<th>` 의 `aria-sort`. 정렬 상태는 DataTable 이 채운다. */
+  ariaSort?: 'none' | 'ascending' | 'descending'
 }
 
 export interface TableProps<Row> extends Omit<ComponentProps<'table'>, 'children'> {
@@ -82,7 +84,12 @@ export function Table<Row>({
         <thead>
           <tr className={s.headerRow()}>
             {columns.map((column) => (
-              <th key={column.key} scope="col" className={s.header({ align: column.align })}>
+              <th
+                key={column.key}
+                scope="col"
+                aria-sort={column.ariaSort}
+                className={s.header({ align: column.align })}
+              >
                 {column.header}
               </th>
             ))}
