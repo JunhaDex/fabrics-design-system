@@ -1,8 +1,10 @@
 import { useMemo, useState } from 'react'
-import { ChevronDown, ChevronsUpDown, ChevronUp } from 'lucide'
+import { ChevronDown, ChevronLeft, ChevronRight, ChevronsUpDown, ChevronUp } from 'lucide'
 import { tv } from 'tailwind-variants'
+import { Button } from '../button/button'
 import { Checkbox } from '../checkbox/checkbox'
 import { Icon } from '../icon/icon'
+import { Select } from '../select/select'
 import { Table, type TableColumn, type TableProps } from '../table/table'
 import { layoutClass } from '../utils/layout-class'
 
@@ -15,6 +17,8 @@ export const dataTable = tv({
       'outline-none focus-visible:ring-2 focus-visible:ring-ring',
     ],
     sortIcon: 'shrink-0 text-on-surface-muted',
+    pagination: 'flex items-center justify-end gap-2 text-sm',
+    range: 'text-on-surface-muted',
     live: 'sr-only',
   },
 })
@@ -47,6 +51,19 @@ export interface DataTableProps<Row> extends Omit<TableProps<Row>, 'columns' | '
   onSelectedIdsChange?: (ids: string[]) => void
   /** 행 체크박스의 접근 가능한 이름. 기본값은 `getRowId` — id 가 UUID 면 넘겨야 한다. */
   getRowLabel?: (row: Row) => string
+  /**
+   * 페이지네이션을 켠다. 클라이언트 사이드 전용 — `rows` 전체를 받아 잘라 쓴다.
+   * 서버가 이미 잘라 준 데이터를 넘기면 다시 잘려 빈 표가 된다.
+   */
+  paginated?: boolean
+  /** 1부터 센다. 표시가 1-based 이므로 prop 도 맞춘다. */
+  page?: number
+  defaultPage?: number
+  onPageChange?: (page: number) => void
+  pageSize?: number
+  defaultPageSize?: number
+  onPageSizeChange?: (size: number) => void
+  pageSizeOptions?: number[]
 }
 
 /** 사용자 열 키와 겹치지 않도록 예약한다. */
@@ -84,6 +101,14 @@ export function DataTable<Row>({
   defaultSelectedIds = [],
   onSelectedIdsChange,
   getRowLabel = getRowId,
+  paginated = false,
+  page,
+  defaultPage = 1,
+  onPageChange,
+  pageSize,
+  defaultPageSize = 10,
+  onPageSizeChange,
+  pageSizeOptions = [10, 20, 50],
   className,
   ...props
 }: DataTableProps<Row>) {
@@ -120,6 +145,31 @@ export function DataTable<Row>({
       ? `${columnLabel(activeColumn)} 기준 ${directionLabels[current.direction]} 정렬`
       : '정렬 해제'
 
+  const [uncontrolledPage, setUncontrolledPage] = useState(defaultPage)
+  const pageControlled = page !== undefined
+  const [uncontrolledPageSize, setUncontrolledPageSize] = useState(defaultPageSize)
+  const pageSizeControlled = pageSize !== undefined
+  const size = pageSizeControlled ? pageSize : uncontrolledPageSize
+
+  const total = sortedRows.length
+  const lastPage = Math.max(1, Math.ceil(total / size))
+  // 보정은 파생값으로 한다. 페이지 크기 변경뿐 아니라 rows 가 바깥에서 줄어도
+  // 범위를 벗어나므로 한 규칙으로 둘 다 막는다. 렌더 중에 콜백은 부르지 않는다.
+  const currentPage = Math.min(pageControlled ? page : uncontrolledPage, lastPage)
+  const pagedRows = paginated
+    ? sortedRows.slice((currentPage - 1) * size, currentPage * size)
+    : sortedRows
+
+  const changePage = (next: number) => {
+    if (!pageControlled) setUncontrolledPage(next)
+    onPageChange?.(next)
+  }
+
+  const changePageSize = (next: number) => {
+    if (!pageSizeControlled) setUncontrolledPageSize(next)
+    onPageSizeChange?.(next)
+  }
+
   const changeIds = (next: string[]) => {
     if (!selectionControlled) setUncontrolledIds(next)
     onSelectedIdsChange?.(next)
@@ -128,8 +178,8 @@ export function DataTable<Row>({
   const toggleRow = (id: string) =>
     changeIds(idSet.has(id) ? ids.filter((value) => value !== id) : [...ids, id])
 
-  // 전체선택 범위는 보이는 행이다. 페이지네이션이 붙으면 그대로 현재 페이지가 된다.
-  const visibleIds = sortedRows.map(getRowId)
+  // 전체선택 범위는 보이는 행, 즉 현재 페이지다.
+  const visibleIds = pagedRows.map(getRowId)
   const allVisibleSelected = visibleIds.length > 0 && visibleIds.every((id) => idSet.has(id))
   const someVisibleSelected = !allVisibleSelected && visibleIds.some((id) => idSet.has(id))
 
@@ -185,11 +235,48 @@ export function DataTable<Row>({
     <div className={s.root({ class: layoutClass(className) })}>
       <Table
         columns={selectable ? [selectColumn, ...tableColumns] : tableColumns}
-        rows={sortedRows}
+        rows={pagedRows}
         getRowId={getRowId}
         isRowSelected={selectable ? (row) => idSet.has(getRowId(row)) : undefined}
         {...props}
       />
+      {paginated && (
+        <nav aria-label="페이지 이동" className={s.pagination()}>
+          <span aria-live="polite" className={s.range()}>
+            {total === 0 ? 0 : (currentPage - 1) * size + 1}–{Math.min(currentPage * size, total)} /{' '}
+            {total}
+          </span>
+          <Select
+            aria-label="페이지 크기"
+            size="sm"
+            className="w-24"
+            value={String(size)}
+            onValueChange={(value) => changePageSize(Number(value))}
+            options={pageSizeOptions.map((option) => ({
+              value: String(option),
+              label: `${option}개`,
+            }))}
+          />
+          <Button
+            variant="ghost"
+            size="sm"
+            aria-label="이전 페이지"
+            disabled={currentPage <= 1}
+            onClick={() => changePage(currentPage - 1)}
+          >
+            <Icon node={ChevronLeft} size={16} />
+          </Button>
+          <Button
+            variant="ghost"
+            size="sm"
+            aria-label="다음 페이지"
+            disabled={currentPage >= lastPage}
+            onClick={() => changePage(currentPage + 1)}
+          >
+            <Icon node={ChevronRight} size={16} />
+          </Button>
+        </nav>
+      )}
       <div aria-live="polite" className={s.live()}>
         {announcement}
       </div>

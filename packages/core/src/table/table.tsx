@@ -1,5 +1,6 @@
 import { useId, type ComponentProps, type ReactNode } from 'react'
 import { tv } from 'tailwind-variants'
+import { Skeleton } from '../skeleton/skeleton'
 import { layoutClass } from '../utils/layout-class'
 
 export const table = tv({
@@ -15,6 +16,7 @@ export const table = tv({
       'data-[selected]:bg-brand-subtle data-[selected]:text-on-brand-subtle',
     ],
     cell: 'px-cell-x py-cell-y whitespace-nowrap text-on-surface',
+    empty: 'px-cell-x py-cell-y text-center text-on-surface-muted',
   },
   variants: {
     // 열마다 다르므로 슬롯 함수 호출 시점에 넘긴다.
@@ -47,7 +49,14 @@ export interface TableProps<Row> extends Omit<ComponentProps<'table'>, 'children
    * 선택 상태 전달은 행 체크박스의 checked 가 담당한다.
    */
   isRowSelected?: (row: Row) => boolean
+  /** 행이 없을 때 본문에 `colSpan` 셀 하나로 보여준다. */
+  emptyMessage?: ReactNode
+  /** 불러오는 중. Skeleton 행을 그리고 `<table aria-busy>` 가 된다. */
+  loading?: boolean
 }
+
+/** Skeleton 행 수. 설정 prop 으로 열지 않는다. */
+const LOADING_ROWS = 3
 
 /**
  * 정적 표. 상태는 갖지 않으며 DataTable 이 이 컴포넌트를 감싸 정렬·선택·페이지네이션을
@@ -66,6 +75,8 @@ export function Table<Row>({
   getRowId,
   caption,
   isRowSelected,
+  emptyMessage,
+  loading,
   className,
   ...props
 }: TableProps<Row>) {
@@ -86,7 +97,7 @@ export function Table<Row>({
           }
         : {})}
     >
-      <table className={s.root()} {...props}>
+      <table aria-busy={loading || undefined} className={s.root()} {...props}>
         {caption != null && (
           <caption id={captionId} className={s.caption()}>
             {caption}
@@ -107,19 +118,37 @@ export function Table<Row>({
           </tr>
         </thead>
         <tbody>
-          {rows.map((row) => (
-            <tr
-              key={getRowId(row)}
-              data-selected={isRowSelected?.(row) || undefined}
-              className={s.row()}
-            >
-              {columns.map((column) => (
-                <td key={column.key} className={s.cell({ align: column.align })}>
-                  {column.cell(row)}
-                </td>
-              ))}
+          {loading &&
+            Array.from({ length: LOADING_ROWS }, (_, index) => (
+              <tr key={index} className={s.row()}>
+                {columns.map((column) => (
+                  <td key={column.key} className={s.cell({ align: column.align })}>
+                    <Skeleton className="h-4 w-full" />
+                  </td>
+                ))}
+              </tr>
+            ))}
+          {!loading && rows.length === 0 && emptyMessage != null && (
+            <tr className={s.row()}>
+              <td colSpan={columns.length} className={s.empty()}>
+                {emptyMessage}
+              </td>
             </tr>
-          ))}
+          )}
+          {!loading &&
+            rows.map((row) => (
+              <tr
+                key={getRowId(row)}
+                data-selected={isRowSelected?.(row) || undefined}
+                className={s.row()}
+              >
+                {columns.map((column) => (
+                  <td key={column.key} className={s.cell({ align: column.align })}>
+                    {column.cell(row)}
+                  </td>
+                ))}
+              </tr>
+            ))}
         </tbody>
       </table>
     </div>

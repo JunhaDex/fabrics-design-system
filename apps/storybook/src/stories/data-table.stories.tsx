@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
-import { expect, fn, userEvent, within } from 'storybook/test'
+import { expect, fn, screen, userEvent, waitFor, within } from 'storybook/test'
 import { DataTable, type DataTableColumn } from '@junhadex/core'
 
 interface Fabric {
@@ -192,5 +192,112 @@ export const ControlledSelection: Story = {
 
     await expect(linen).not.toBeChecked()
     await expect(cotton).toBeChecked()
+  },
+}
+
+/** 범위 표시. `aria-live` 영역이라 역할로 집을 수 없어 nav 안에서 찾는다. */
+const range = (canvasElement: HTMLElement) =>
+  within(canvasElement).getByRole('navigation', { name: '페이지 이동' }).firstElementChild
+    ?.textContent
+
+/**
+ * 목록이 닫히고 포털이 사라질 때까지 기다린다. 열린 채로 play 가 끝나면 Radix 가
+ * 형제에 걸어 둔 aria-hidden 이 axe 의 aria-hidden-focus 에 걸린다.
+ */
+const closed = () => waitFor(() => expect(screen.queryByRole('option')).not.toBeInTheDocument())
+
+/** 마지막 페이지는 1행만 남는다 — 경계가 그대로 드러난다. */
+export const Pagination: Story = {
+  args: { paginated: true, defaultPageSize: 2, onPageChange: fn() },
+  play: async ({ canvasElement, args }) => {
+    const canvas = within(canvasElement)
+    const prev = canvas.getByRole('button', { name: '이전 페이지' })
+    const next = canvas.getByRole('button', { name: '다음 페이지' })
+
+    await expect(range(canvasElement)).toBe('1–2 / 5')
+    await expect(names(canvasElement)).toEqual(original.slice(0, 2))
+    await expect(prev).toBeDisabled()
+
+    await userEvent.click(next)
+    await expect(args.onPageChange).toHaveBeenCalledWith(2)
+    await expect(range(canvasElement)).toBe('3–4 / 5')
+    await expect(names(canvasElement)).toEqual(original.slice(2, 4))
+
+    await userEvent.click(next)
+    await expect(range(canvasElement)).toBe('5–5 / 5')
+    await expect(names(canvasElement)).toEqual(original.slice(4))
+    await expect(next).toBeDisabled()
+  },
+}
+
+/** 페이지 크기를 키우면 마지막 페이지가 줄어들어 현재 페이지가 보정된다. */
+export const PageSizeChange: Story = {
+  args: { paginated: true, defaultPageSize: 2, defaultPage: 3, onPageSizeChange: fn() },
+  play: async ({ canvasElement, args }) => {
+    const canvas = within(canvasElement)
+    await expect(range(canvasElement)).toBe('5–5 / 5')
+
+    await userEvent.click(canvas.getByRole('combobox', { name: '페이지 크기' }))
+    await userEvent.click(await screen.findByRole('option', { name: '10개' }))
+    await expect(args.onPageSizeChange).toHaveBeenCalledWith(10)
+
+    // 목록이 열려 있는 동안 Radix 가 형제에 aria-hidden 을 걸어 표의 역할이 숨는다.
+    // 포털이 사라진 뒤에 읽는다.
+    await closed()
+
+    // 3페이지는 더 이상 없으므로 1페이지로 보정된다.
+    await expect(range(canvasElement)).toBe('1–5 / 5')
+    await expect(names(canvasElement)).toEqual(original)
+    await expect(canvas.getByRole('button', { name: '이전 페이지' })).toBeDisabled()
+  },
+}
+
+/** 전체선택 범위는 현재 페이지이고, 페이지를 옮겨도 다른 페이지의 선택은 남는다. */
+export const SelectionAcrossPages: Story = {
+  args: { paginated: true, defaultPageSize: 2, selectable: true, onSelectedIdsChange: fn() },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const next = canvas.getByRole('button', { name: '다음 페이지' })
+
+    await userEvent.click(canvas.getByRole('checkbox', { name: 'FB-1001 선택' }))
+    await expect(canvas.getByRole('checkbox', { name: '전체 선택' })).toHaveAttribute(
+      'aria-checked',
+      'mixed',
+    )
+
+    await userEvent.click(next)
+    // 2페이지에는 선택된 행이 없으므로 헤더는 비어 있다.
+    const header = canvas.getByRole('checkbox', { name: '전체 선택' })
+    await expect(header).not.toBeChecked()
+    await expect(header).toHaveAttribute('aria-checked', 'false')
+
+    // 현재 페이지만 전체선택된다.
+    await userEvent.click(header)
+    await expect(canvas.getAllByRole('checkbox', { checked: true })).toHaveLength(3)
+
+    await userEvent.click(canvas.getByRole('button', { name: '이전 페이지' }))
+    // 1페이지의 선택이 유지된다.
+    await expect(canvas.getByRole('checkbox', { name: 'FB-1001 선택' })).toBeChecked()
+    await expect(canvas.getByRole('checkbox', { name: 'FB-1002 선택' })).not.toBeChecked()
+  },
+}
+
+export const Loading: Story = {
+  args: { loading: true },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    await expect(canvas.getByRole('table')).toHaveAttribute('aria-busy', 'true')
+    // 헤더 + Skeleton 행 3개.
+    await expect(canvas.getAllByRole('row')).toHaveLength(4)
+    // 자리표시자는 Skeleton 의 animate-pulse 로 센다 — aria-hidden 은 아이콘에도 붙는다.
+    await expect(canvasElement.querySelectorAll('.animate-pulse')).toHaveLength(3 * columns.length)
+  },
+}
+
+export const Empty: Story = {
+  args: { rows: [], emptyMessage: '원단이 없습니다' },
+  play: async ({ canvasElement }) => {
+    const cell = within(canvasElement).getByRole('cell', { name: '원단이 없습니다' })
+    await expect(cell).toHaveAttribute('colspan', String(columns.length))
   },
 }
