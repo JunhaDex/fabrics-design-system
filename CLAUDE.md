@@ -49,8 +49,8 @@ apps/storybook       Storybook 문서 사이트 (토큰 SSOT 시각화)
 - **className 오버라이드**: 레이아웃 속성(margin, width, grid 배치 등)만 병합 허용.
   색상·radius 등 룩앤필은 토큰과 variant prop으로만 제어한다.
 - **토큰 SSOT**: 코드(`packages/tokens`, `themes/*`). Storybook으로 시각화. Figma는 추후.
-- **컴포넌트 범위와 순서**: v0.2 폼/피드백 → v0.3 데이터 표시 → v0.4 레이아웃(모달,
-  푸터, top nav, side nav, columns, 벤토 그리드) → v0.5 추가 테마 → v0.6 fabrics 도메인.
+- **컴포넌트 범위와 순서**: v0.2 폼/피드백 → v0.3 데이터 표시 → v0.4 레이아웃(Dialog,
+  AlertDialog, Footer, TopBar, SideNav, BottomTabBar, Columns, BentoGrid) → v0.5 추가 테마 → v0.6 fabrics 도메인.
   컴포넌트를 먼저 쌓고 테마를 나중에 만든다. 버전별 목록은 `../../docs/common-design-todo.md`.
 - **core 제외 대상**: Card, Avatar는 프로젝트별로 정의하므로 core에 넣지 않는다.
   fabrics 도메인 컴포넌트 목록은 첫 소비 프로젝트 기획 시 정의한다.
