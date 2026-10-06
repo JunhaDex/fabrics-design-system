@@ -7,6 +7,7 @@ export {
 export { Alert, alert, type AlertProps } from './alert/alert'
 export { Badge, badge, type BadgeProps } from './badge/badge'
 export { Button, button, type ButtonProps } from './button/button'
+export { BottomTabBar, bottomTabBar, type BottomTabBarProps } from './bottom-tab-bar/bottom-tab-bar'
 export { Checkbox, checkbox, type CheckboxProps } from './checkbox/checkbox'
 export {
   DataTable,
@@ -34,6 +35,7 @@ export { Skeleton, skeleton, type SkeletonProps } from './skeleton/skeleton'
 export { Slider, slider, type SliderProps } from './slider/slider'
 export { Spinner, spinner, type SpinnerProps } from './spinner/spinner'
 export { Switch, switchStyles, type SwitchProps } from './switch/switch'
+export { SideNav, sideNav, type SideNavProps } from './side-nav/side-nav'
 export { Tabs, tabs, type TabsProps, type TabItem } from './tabs/tabs'
 export { Table, table, type TableProps, type TableColumn } from './table/table'
 export { Textarea, textarea, type TextareaProps } from './textarea/textarea'
@@ -55,3 +57,4 @@ export {
   type ToggleGroupOption,
 } from './toggle-group/toggle-group'
 export { layoutClass } from './utils/layout-class'
+export type { NavItem, NavLinkProps } from './utils/nav'

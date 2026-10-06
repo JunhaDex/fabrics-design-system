@@ -1,5 +1,5 @@
 import type { ComponentProps, ReactNode } from 'react'
-import { tv } from 'tailwind-variants'
+import { tv } from '../utils/tv'
 import { layoutClass } from '../utils/layout-class'
 
 export const topBar = tv({

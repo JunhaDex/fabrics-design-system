@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import type { CSSProperties } from 'react'
 import { expect, within } from 'storybook/test'
+import { contrast } from './contrast'
 
 const colors = [
   'surface',
@@ -127,19 +128,6 @@ const tones = ['neutral', 'brand', 'success', 'warning', 'danger', 'info'] as co
 const appearances = ['solid', 'subtle', 'outline'] as const
 type Tone = (typeof tones)[number]
 type Appearance = (typeof appearances)[number]
-
-/** `rgb(r, g, b)` / `rgba(...)` 문자열의 상대 휘도. */
-const luminance = (color: string) =>
-  (color.match(/[\d.]+/g) ?? [])
-    .slice(0, 3)
-    .map((v) => Number(v) / 255)
-    .map((v) => (v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4))
-    .reduce((sum, v, i) => sum + [0.2126, 0.7152, 0.0722][i] * v, 0)
-
-const contrast = (a: string, b: string) => {
-  const [hi, lo] = [luminance(a), luminance(b)].sort((x, y) => y - x)
-  return (hi + 0.05) / (lo + 0.05)
-}
 
 // Tailwind 는 소스의 완성된 클래스 문자열만 스캔하므로 24키를 리터럴로 적는다.
 // Badge 가 소비할 집합과 동일하다.
