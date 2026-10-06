@@ -37,6 +37,12 @@
       },
       "cell-y": {
         "$value": "{spacing.2}"
+      },
+      "bar": {
+        "$value": "{spacing.14}"
+      },
+      "nav": {
+        "$value": "{spacing.56}"
       }
     },
     "duration": {
