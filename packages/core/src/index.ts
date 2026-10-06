@@ -46,6 +46,7 @@ export {
   type ToastTone,
 } from './toast/toast-store'
 export { Tooltip, tooltip, type TooltipProps } from './tooltip/tooltip'
+export { TopBar, topBar, type TopBarProps } from './top-bar/top-bar'
 export { Toggle, toggle, type ToggleProps } from './toggle/toggle'
 export {
   ToggleGroup,
