@@ -20,6 +20,7 @@ export {
 } from './data-table/data-table'
 export { Dialog, dialog, type DialogProps } from './dialog/dialog'
 export { Field, field, type FieldProps } from './field/field'
+export { Footer, footer, type FooterProps } from './footer/footer'
 export { Icon, type IconProps, type IconNode } from './icon/icon'
 export { Input, input, type InputProps } from './input/input'
 export { Label, label, type LabelProps } from './label/label'
