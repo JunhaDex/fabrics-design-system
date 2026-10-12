@@ -7,6 +7,7 @@ export {
 export { Alert, alert, type AlertProps } from './alert/alert'
 export { AlertDialog, type AlertDialogProps } from './alert-dialog/alert-dialog'
 export { Badge, badge, type BadgeProps } from './badge/badge'
+export { BentoGrid, bentoGrid, type BentoGridProps, type BentoItem } from './bento-grid/bento-grid'
 export { Button, button, type ButtonProps } from './button/button'
 export { BottomTabBar, bottomTabBar, type BottomTabBarProps } from './bottom-tab-bar/bottom-tab-bar'
 export { Checkbox, checkbox, type CheckboxProps } from './checkbox/checkbox'
