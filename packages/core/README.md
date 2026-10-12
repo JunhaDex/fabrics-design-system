@@ -50,6 +50,8 @@ Slider, Toggle, ToggleGroup
 
 **데이터 표시**: Badge, Separator, Tabs, Accordion, Table, DataTable
 
+**레이아웃**: TopBar, SideNav, BottomTabBar, Dialog, AlertDialog, Footer, Columns, BentoGrid
+
 **그 외**: Button, Icon
 
 ## 사용
@@ -112,6 +114,42 @@ const columns: DataTableColumn<Fabric>[] = [
 
 접근 가능한 이름(`caption` 또는 `aria-label`)을 주면 가로 스크롤 영역이
 `role="region"`이 되어 키보드로 스크롤할 수 있다.
+
+내비게이션은 라우터를 모른다. 현재 페이지는 소비자가 `current`로 넘기고, 링크
+요소는 `linkComponent`로 바꿔 끼운다(Next.js `Link`를 그대로 넘길 수 있다).
+모바일 하단 탭과 PC 사이드 내비의 전환은 `className`으로 정한다.
+
+```tsx
+import { BottomTabBar, Icon, SideNav, TopBar, type NavItem } from '@junhadex/core'
+import { House, Shirt } from 'lucide'
+
+const items: NavItem[] = [
+  { href: '/', label: '홈', icon: <Icon node={House} />, current: pathname === '/' },
+  { href: '/closet', label: '옷장', icon: <Icon node={Shirt} />, current: pathname.startsWith('/closet') },
+]
+
+<TopBar brand={<span>fabrics</span>} actions={<ModeToggle />} />
+<SideNav items={items} aria-label="주요 메뉴" linkComponent={Link} className="hidden md:flex" />
+<BottomTabBar items={items} aria-label="주요 메뉴" linkComponent={Link} className="md:hidden" />
+```
+
+`Dialog`는 md 미만에서 하단 시트, 이상에서 가운데 모달이 된다. footer 버튼으로
+닫으려면 `open`/`onOpenChange`로 제어한다. safe-area 여백은 소비 프로젝트가
+`viewport-fit=cover`를 설정했을 때 반영된다.
+
+```tsx
+<Dialog
+  title="주문 상세"
+  open={open}
+  onOpenChange={setOpen}
+  footer={<Button onClick={() => setOpen(false)}>확인</Button>}
+>
+  …
+</Dialog>
+<AlertDialog trigger={<Button>삭제</Button>} title="삭제할까요?" description="되돌릴 수 없습니다." tone="danger" onConfirm={remove} />
+```
+
+`Columns`와 `BentoGrid`는 뷰포트가 아니라 놓인 영역의 폭(컨테이너 쿼리)으로 펼친다.
 
 ## 규칙
 
