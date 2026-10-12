@@ -10,6 +10,7 @@ export { Badge, badge, type BadgeProps } from './badge/badge'
 export { Button, button, type ButtonProps } from './button/button'
 export { BottomTabBar, bottomTabBar, type BottomTabBarProps } from './bottom-tab-bar/bottom-tab-bar'
 export { Checkbox, checkbox, type CheckboxProps } from './checkbox/checkbox'
+export { Columns, columns, type ColumnsProps } from './columns/columns'
 export {
   DataTable,
   dataTable,
