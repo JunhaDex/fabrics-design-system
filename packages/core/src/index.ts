@@ -5,6 +5,7 @@ export {
   type AccordionItem,
 } from './accordion/accordion'
 export { Alert, alert, type AlertProps } from './alert/alert'
+export { AlertDialog, type AlertDialogProps } from './alert-dialog/alert-dialog'
 export { Badge, badge, type BadgeProps } from './badge/badge'
 export { Button, button, type ButtonProps } from './button/button'
 export { BottomTabBar, bottomTabBar, type BottomTabBarProps } from './bottom-tab-bar/bottom-tab-bar'
