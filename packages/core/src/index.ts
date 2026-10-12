@@ -17,6 +17,7 @@ export {
   type SortState,
   type SortDirection,
 } from './data-table/data-table'
+export { Dialog, dialog, type DialogProps } from './dialog/dialog'
 export { Field, field, type FieldProps } from './field/field'
 export { Icon, type IconProps, type IconNode } from './icon/icon'
 export { Input, input, type InputProps } from './input/input'
