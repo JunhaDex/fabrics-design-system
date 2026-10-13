@@ -112,6 +112,9 @@
       },
       "on-neutral-subtle": {
         "$value": "{color.gray.700}"
+      },
+      "scrim": {
+        "$value": "rgba(9, 9, 11, 0.5)"
       }
     }
   }

@@ -5,9 +5,13 @@ export {
   type AccordionItem,
 } from './accordion/accordion'
 export { Alert, alert, type AlertProps } from './alert/alert'
+export { AlertDialog, type AlertDialogProps } from './alert-dialog/alert-dialog'
 export { Badge, badge, type BadgeProps } from './badge/badge'
+export { BentoGrid, bentoGrid, type BentoGridProps, type BentoItem } from './bento-grid/bento-grid'
 export { Button, button, type ButtonProps } from './button/button'
+export { BottomTabBar, bottomTabBar, type BottomTabBarProps } from './bottom-tab-bar/bottom-tab-bar'
 export { Checkbox, checkbox, type CheckboxProps } from './checkbox/checkbox'
+export { Columns, columns, type ColumnsProps } from './columns/columns'
 export {
   DataTable,
   dataTable,
@@ -16,7 +20,9 @@ export {
   type SortState,
   type SortDirection,
 } from './data-table/data-table'
+export { Dialog, dialog, type DialogProps } from './dialog/dialog'
 export { Field, field, type FieldProps } from './field/field'
+export { Footer, footer, type FooterProps } from './footer/footer'
 export { Icon, type IconProps, type IconNode } from './icon/icon'
 export { Input, input, type InputProps } from './input/input'
 export { Label, label, type LabelProps } from './label/label'
@@ -34,6 +40,7 @@ export { Skeleton, skeleton, type SkeletonProps } from './skeleton/skeleton'
 export { Slider, slider, type SliderProps } from './slider/slider'
 export { Spinner, spinner, type SpinnerProps } from './spinner/spinner'
 export { Switch, switchStyles, type SwitchProps } from './switch/switch'
+export { SideNav, sideNav, type SideNavProps } from './side-nav/side-nav'
 export { Tabs, tabs, type TabsProps, type TabItem } from './tabs/tabs'
 export { Table, table, type TableProps, type TableColumn } from './table/table'
 export { Textarea, textarea, type TextareaProps } from './textarea/textarea'
@@ -46,6 +53,7 @@ export {
   type ToastTone,
 } from './toast/toast-store'
 export { Tooltip, tooltip, type TooltipProps } from './tooltip/tooltip'
+export { TopBar, topBar, type TopBarProps } from './top-bar/top-bar'
 export { Toggle, toggle, type ToggleProps } from './toggle/toggle'
 export {
   ToggleGroup,
@@ -54,3 +62,4 @@ export {
   type ToggleGroupOption,
 } from './toggle-group/toggle-group'
 export { layoutClass } from './utils/layout-class'
+export type { NavItem, NavLinkProps } from './utils/nav'

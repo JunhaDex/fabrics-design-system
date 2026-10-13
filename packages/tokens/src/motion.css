@@ -49,3 +49,39 @@
   --animate-accordion-down: accordion-down var(--sem-duration-base) var(--sem-ease-enter);
   --animate-accordion-up: accordion-up var(--sem-duration-base) var(--sem-ease-exit);
 }
+
+/*
+ * 모달 뒤 scrim 의 페이드. enter/exit 는 scale 이 섞여 있어 화면 전체를 덮는
+ * 요소에 쓰면 가장자리가 드러난다.
+ */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+/* md 미만에서 Dialog 가 하단 시트로 바뀔 때의 등장/퇴장. */
+@keyframes sheet-in {
+  from {
+    transform: translateY(100%);
+  }
+}
+
+@keyframes sheet-out {
+  to {
+    transform: translateY(100%);
+  }
+}
+
+@theme {
+  --animate-fade-in: fade-in var(--sem-duration-base) var(--sem-ease-enter);
+  --animate-fade-out: fade-out var(--sem-duration-base) var(--sem-ease-exit);
+  --animate-sheet-in: sheet-in var(--sem-duration-base) var(--sem-ease-enter);
+  --animate-sheet-out: sheet-out var(--sem-duration-base) var(--sem-ease-exit);
+}

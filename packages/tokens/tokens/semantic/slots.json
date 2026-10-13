@@ -143,6 +143,10 @@
       "on-neutral-subtle": {
         "$value": "{color.gray.700}",
         "$description": "neutral-subtle 위 텍스트·아이콘"
+      },
+      "scrim": {
+        "$value": "rgba(9, 9, 11, 0.5)",
+        "$description": "모달 뒤를 덮는 반투명 배경. 투명도까지 테마가 정한다"
       }
     },
     "radius": {
@@ -190,6 +194,14 @@
       "cell-y": {
         "$value": "{spacing.2}",
         "$description": "표 셀 상하 패딩. 행은 촘촘하게 둔다 (밀도)"
+      },
+      "bar": {
+        "$value": "{spacing.14}",
+        "$description": "TopBar 높이, BottomTabBar 최소 높이 (밀도)"
+      },
+      "nav": {
+        "$value": "{spacing.56}",
+        "$description": "SideNav 폭 (밀도)"
       }
     },
     "duration": {

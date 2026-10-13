@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import type { CSSProperties } from 'react'
 import { expect, within } from 'storybook/test'
+import { contrast } from './contrast'
 
 const colors = [
   'surface',
@@ -18,6 +19,7 @@ const colors = [
   'on-danger',
   'success',
   'warning',
+  'scrim',
 ]
 
 const meta = { title: 'Tokens/Semantic' } satisfies Meta
@@ -36,8 +38,23 @@ export const Colors: StoryObj = {
           <code>--color-{c}</code>
         </div>
       ))}
+      <div className="size-8 bg-scrim" data-testid="scrim" />
+      <code>bg-scrim</code>
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    const scrim = within(canvasElement).getByTestId('scrim')
+    const root = document.documentElement
+    const initial = root.dataset.mode
+
+    // scrim 은 투명도까지 슬롯 값에 담는다. 모드마다 값이 바뀌는지 확인한다.
+    root.dataset.mode = 'light'
+    await expect(getComputedStyle(scrim).backgroundColor).toBe('rgba(9, 9, 11, 0.5)')
+    root.dataset.mode = 'dark'
+    await expect(getComputedStyle(scrim).backgroundColor).toBe('rgba(0, 0, 0, 0.7)')
+
+    root.dataset.mode = initial ?? 'light'
+  },
 }
 
 const motion: { testId: string; label: string; className: string; style?: CSSProperties }[] = [
@@ -58,6 +75,8 @@ const motion: { testId: string; label: string; className: string; style?: CSSPro
     className: 'animate-accordion-down overflow-hidden',
     style: { '--radix-accordion-content-height': '40px' } as CSSProperties,
   },
+  { testId: 'fade', label: 'animate-fade-in', className: 'animate-fade-in' },
+  { testId: 'sheet', label: 'animate-sheet-in', className: 'animate-sheet-in' },
 ]
 
 /**
@@ -96,6 +115,12 @@ export const Motion: StoryObj = {
     // accordion 슬롯은 --sem-duration-base(150ms)를 참조한다.
     await expect(styleOf('accordion').animationName).toBe('accordion-down')
     await expect(styleOf('accordion').animationDuration).toBe('0.15s')
+
+    // scrim 페이드와 하단 시트도 --sem-duration-base 를 참조한다.
+    await expect(styleOf('fade').animationName).toBe('fade-in')
+    await expect(styleOf('fade').animationDuration).toBe('0.15s')
+    await expect(styleOf('sheet').animationName).toBe('sheet-in')
+    await expect(styleOf('sheet').animationDuration).toBe('0.15s')
   },
 }
 
@@ -103,19 +128,6 @@ const tones = ['neutral', 'brand', 'success', 'warning', 'danger', 'info'] as co
 const appearances = ['solid', 'subtle', 'outline'] as const
 type Tone = (typeof tones)[number]
 type Appearance = (typeof appearances)[number]
-
-/** `rgb(r, g, b)` / `rgba(...)` 문자열의 상대 휘도. */
-const luminance = (color: string) =>
-  (color.match(/[\d.]+/g) ?? [])
-    .slice(0, 3)
-    .map((v) => Number(v) / 255)
-    .map((v) => (v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4))
-    .reduce((sum, v, i) => sum + [0.2126, 0.7152, 0.0722][i] * v, 0)
-
-const contrast = (a: string, b: string) => {
-  const [hi, lo] = [luminance(a), luminance(b)].sort((x, y) => y - x)
-  return (hi + 0.05) / (lo + 0.05)
-}
 
 // Tailwind 는 소스의 완성된 클래스 문자열만 스캔하므로 24키를 리터럴로 적는다.
 // Badge 가 소비할 집합과 동일하다.
@@ -210,18 +222,28 @@ export const Tones: StoryObj = {
 }
 
 /**
- * 표 셀 패딩 슬롯. Tailwind v4 의 `--spacing-*` 네임스페이스에 이름 있는 키를
+ * 밀도 슬롯(표 셀 패딩, 바 높이, 사이드 내비 폭). Tailwind v4 의 `--spacing-*` 네임스페이스에 이름 있는 키를
  * 넣으면 `px-cell-x` 같은 유틸리티가 생성되는지 확인한다.
  */
 export const Density: StoryObj = {
   render: () => (
-    <div className="inline-block bg-surface-raised px-cell-x py-cell-y" data-testid="cell">
-      <code>px-cell-x py-cell-y</code>
+    <div className="flex flex-col items-start gap-2">
+      <div className="bg-surface-raised px-cell-x py-cell-y" data-testid="cell">
+        <code>px-cell-x py-cell-y</code>
+      </div>
+      <div className="h-bar w-nav bg-surface-raised" data-testid="bar">
+        <code>h-bar w-nav</code>
+      </div>
     </div>
   ),
   play: async ({ canvasElement }) => {
-    const style = getComputedStyle(within(canvasElement).getByTestId('cell'))
+    const canvas = within(canvasElement)
+    const style = getComputedStyle(canvas.getByTestId('cell'))
     await expect(style.paddingLeft).toBe('16px')
     await expect(style.paddingTop).toBe('8px')
+
+    const bar = getComputedStyle(canvas.getByTestId('bar'))
+    await expect(bar.height).toBe('56px')
+    await expect(bar.width).toBe('224px')
   },
 }

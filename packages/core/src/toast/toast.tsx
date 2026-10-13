@@ -7,8 +7,11 @@ import { toastStore } from './toast-store'
 
 export const toastStyles = tv({
   slots: {
+    // z-60 은 나중에 붙는 Dialog(z-50) 위에 오기 위해서, pointer-events-auto 는 모달이
+    // body 에 거는 pointer-events: none 을 되살리기 위해서다. 토스트가 없으면 Radix 가 inline none 을 준다.
     viewport: [
-      'fixed right-0 bottom-0 z-50 m-0 flex w-full max-w-96 list-none flex-col gap-2 p-4',
+      'fixed right-0 bottom-0 z-60 m-0 flex w-full max-w-96 list-none flex-col gap-2 p-4',
+      'pointer-events-auto',
       'outline-none',
     ],
     root: [
