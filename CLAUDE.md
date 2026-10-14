@@ -74,3 +74,27 @@ apps/storybook       Storybook 문서 사이트 (토큰 SSOT 시각화)
 1. Storybook 스토리 (variant·size·상태를 controls로 노출)
 2. `addon-a11y` 검사 통과 (`preview.tsx`의 `a11y.test`는 `'error'`로 유지)
 3. Vitest 상호작용 테스트 (`addon-vitest`, `play` 함수 또는 별도 spec)
+
+## 테마 작성 규칙 (v0.5, 2026-10-14)
+테마 고도화는 테마별 별도 세션에서 진행한다. 결정 근거는 `../../docs/common-design-todo.md`
+"결정 사항"(2026-10-13) 참고.
+- **채우는 범위**: 테마는 의미 슬롯 값(`tokens/theme.json`, `tokens/semantic/<mode>.json`)과
+  `src/layer.css`만 채운다. `@theme`은 선택자 아래에 둘 수 없어 Storybook 스코프 빌드에서
+  테마별로 바꿀 수 없으므로, 원시 값이 필요하면 `packages/tokens`의 원시 토큰에 추가한다.
+  DTCG 이름에 점을 쓸 수 없으므로 반단위 길이(0.625rem 등)는 슬롯에 리터럴로 쓴다.
+- **빌드**: `build.js`는 `buildTheme(name, modes)`(`@junhadex/tokens/build-theme.js`)만 호출한다.
+  `theme.css`(소비 프로젝트, `:root`)와 `theme.scoped.css`(Storybook, `[data-theme]`)가 같은
+  출력에서 생성된다.
+- **레이어**: `layer.css`는 스코프 빌드에서 `[data-theme="<name>"] { … }`로 감싸지므로 스타일
+  규칙만 쓴다(`@keyframes` 불가). core에는 아직 `data-slot` 훅이 없어 레이어가 컴포넌트를 고를
+  수 없다. 필요해지면 core에 훅을 추가하는 작업을 먼저 한다.
+- **선과 그림자**: 테두리 두께 슬롯은 없다. 두께는 레이아웃을 바꾸므로 외곽선은 그림자 spread로
+  그린다(`shadow.control`·`field`·`raised`·`overlay`, Tailwind가 포커스 링과 한 `box-shadow`로
+  합성). 선 색이 모드마다 다르면 그림자 슬롯을 모드 파일에 둔다.
+- **Storybook 연결**: 새 테마는 `apps/storybook/.storybook/themes.ts`, `src/index.css`의
+  `theme.scoped.css` import, `apps/storybook/package.json` 의존성 세 곳에 추가한다. `themes.ts`가
+  툴바 항목과 테마별 테스트 프로젝트(`storybook:<theme>`)를 함께 만든다.
+- **테스트**: 모든 테마·모드에서 기존 대비 단언(텍스트 4.5:1, 경계 3:1), 필드 경계
+  (`Accessibility/FieldBoundary`), 타깃 크기 24px(`Accessibility/TargetSize`), a11y 검사를 통과해야
+  한다. 크기 단언은 고정값 대신 `stories/slot.ts`의 `slotPx()`로 슬롯 값을 읽는다. neutral 값
+  자체를 확인하는 단언에만 `neutral-only` 태그를 붙인다.
