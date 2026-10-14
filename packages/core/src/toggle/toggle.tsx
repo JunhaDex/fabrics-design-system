@@ -8,7 +8,7 @@ export const toggle = tv({
   slots: {
     root: [
       'inline-flex items-center justify-center gap-2 font-medium whitespace-nowrap',
-      'rounded-control px-control-x py-control-y text-on-surface',
+      'rounded-control border border-transparent px-control-x py-control-y text-on-surface',
       pressable,
       'hover:bg-surface-raised',
       'data-[state=on]:bg-brand data-[state=on]:text-on-brand',
