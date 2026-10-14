@@ -51,8 +51,8 @@ StyleDictionary.registerFormat({
 // 모션 무력화는 슬롯 한 곳에서 건다. 테마가 채운 값보다 뒤에 와야 이긴다.
 StyleDictionary.registerFormat({
   name: 'css/reduced-motion',
-  format: ({ dictionary }) =>
-    `@media (prefers-reduced-motion: reduce) {\n  :root {\n${dictionary.allTokens
+  format: ({ dictionary, options }) =>
+    `@media (prefers-reduced-motion: reduce) {\n  ${options.selector ?? ':root'} {\n${dictionary.allTokens
       .map((t) => `    --${t.name}: 1ms;`)
       .join('\n')}\n  }\n}\n`,
 })

@@ -9,7 +9,8 @@
     "src"
   ],
   "exports": {
-    "./theme.css": "./dist/theme.css"
+    "./theme.css": "./dist/theme.css",
+    "./theme.scoped.css": "./dist/theme.scoped.css"
   },
   "scripts": {
     "build": "node build.js"

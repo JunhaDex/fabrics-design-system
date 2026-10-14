@@ -7,10 +7,12 @@
     "dist",
     "tokens",
     "src",
-    "sd.config.js"
+    "sd.config.js",
+    "build-theme.js"
   ],
   "exports": {
     "./sd.config.js": "./sd.config.js",
+    "./build-theme.js": "./build-theme.js",
     "./primitives.css": "./dist/primitives.css",
     "./bridge.css": "./dist/bridge.css",
     "./motion.css": "./src/motion.css",

@@ -1,24 +1,3 @@
-import StyleDictionary from 'style-dictionary'
-import { readFile, writeFile } from 'node:fs/promises'
-import { createRequire } from 'node:module'
-import { configs } from './sd.config.js'
+import { buildTheme } from '@junhadex/tokens/build-theme.js'
 
-const require = createRequire(import.meta.url)
-
-for (const config of configs) await new StyleDictionary(config).buildAllPlatforms()
-
-// 소비 프로젝트가 @import 한 줄로 쓰도록 단일 theme.css 로 합친다.
-const parts = [
-  require.resolve('@junhadex/tokens/primitives.css'),
-  require.resolve('@junhadex/tokens/bridge.css'),
-  require.resolve('@junhadex/tokens/motion.css'),
-  'dist/root.css',
-  'dist/mode-light.css',
-  'dist/mode-dark.css',
-  // 슬롯 값을 덮어써야 하므로 테마 값(root/mode)보다 뒤에 온다.
-  require.resolve('@junhadex/tokens/reduced-motion.css'),
-  'src/layer.css',
-]
-const css = await Promise.all(parts.map((p) => readFile(p, 'utf8')))
-await writeFile('dist/theme.css', css.join('\n'))
-console.log('✔︎ dist/theme.css')
+await buildTheme('neutral', { light: 'light', dark: 'dark' })

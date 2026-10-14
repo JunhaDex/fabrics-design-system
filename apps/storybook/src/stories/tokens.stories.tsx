@@ -250,3 +250,52 @@ export const Density: StoryObj = {
     await expect(bar.width).toBe('224px')
   },
 }
+
+/** 스타일시트의 규칙을 미디어 블록까지 펼쳐 문서 순서대로 나열한다. */
+const flatRules = () => {
+  const out: { rule: CSSStyleRule; media?: string }[] = []
+  const walk = (rules: CSSRuleList, media?: string) => {
+    for (const rule of rules) {
+      if (rule instanceof CSSMediaRule) walk(rule.cssRules, rule.conditionText)
+      else if (rule instanceof CSSStyleRule) out.push({ rule, media })
+    }
+  }
+  for (const sheet of document.styleSheets) walk(sheet.cssRules)
+  return out
+}
+
+/**
+ * 테마 스코프. Storybook 은 `theme.scoped.css` 를 써서 슬롯 값을 `<html data-theme>` 아래에만 건다.
+ * 테마 속성이 없으면 슬롯이 비고, 있으면 채워진다.
+ */
+export const ThemeScope: StoryObj = {
+  render: () => <div className="size-8 bg-surface-inverse" data-testid="swatch" />,
+  play: async ({ canvasElement }) => {
+    const swatch = within(canvasElement).getByTestId('swatch')
+    const root = document.documentElement
+    const initial = root.dataset.theme
+
+    delete root.dataset.theme
+    await expect(getComputedStyle(swatch).backgroundColor).toBe('rgba(0, 0, 0, 0)')
+    root.dataset.theme = 'neutral'
+    await expect(getComputedStyle(swatch).backgroundColor).toBe('rgb(24, 24, 27)')
+
+    // 스코프 값은 :root 보다 우선하므로 reduced-motion 덮어쓰기도 같은 스코프로, 테마 값보다 뒤에 와야 이긴다.
+    // 미디어 쿼리는 테스트에서 켤 수 없어 규칙 순서로 확인한다.
+    const rules = flatRules()
+    const scope = '[data-theme="neutral"]'
+    const value = rules.findIndex(
+      (r) =>
+        !r.media &&
+        r.rule.selectorText === scope &&
+        r.rule.style.getPropertyValue('--sem-duration-base'),
+    )
+    const reduced = rules.findIndex(
+      (r) => r.media?.includes('prefers-reduced-motion') && r.rule.selectorText === scope,
+    )
+    await expect(value).toBeGreaterThanOrEqual(0)
+    await expect(reduced).toBeGreaterThan(value)
+
+    root.dataset.theme = initial ?? 'neutral'
+  },
+}

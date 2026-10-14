@@ -16,8 +16,17 @@ const preview: Preview = {
       test: 'error',
     },
   },
-  // 모드(light/dark)는 <html data-mode> 로 런타임 전환한다.
+  // 테마는 <html data-theme>, 모드(light/dark)는 <html data-mode> 로 런타임 전환한다.
   globalTypes: {
+    theme: {
+      description: '테마',
+      toolbar: {
+        title: 'Theme',
+        icon: 'paintbrush',
+        items: ['neutral'],
+        dynamicTitle: true,
+      },
+    },
     mode: {
       description: '테마 모드',
       toolbar: {
@@ -28,9 +37,11 @@ const preview: Preview = {
       },
     },
   },
-  initialGlobals: { mode: 'light' },
+  initialGlobals: { theme: 'neutral', mode: 'light' },
   decorators: [
     (Story, { globals }) => {
+      // 테마가 없으면 모든 슬롯이 비므로 첫 렌더 전에 건다(mode 는 테마 블록이 기본값을 갖는다).
+      document.documentElement.dataset.theme = globals.theme
       useEffect(() => {
         document.documentElement.dataset.mode = globals.mode
       }, [globals.mode])

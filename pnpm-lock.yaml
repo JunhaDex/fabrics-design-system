@@ -77,6 +77,9 @@ importers:
       '@junhadex/theme-neutral':
         specifier: workspace:*
         version: link:../../themes/neutral
+      '@junhadex/tokens':
+        specifier: workspace:*
+        version: link:../../packages/tokens
       react:
         specifier: 'catalog:'
         version: 19.3.0
