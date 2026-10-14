@@ -44,3 +44,19 @@ export const Sizes: Story = {
     </div>
   ),
 }
+
+/** 좁은 행에서도 한글 레이블이 음절 단위로 줄바꿈되지 않는다. 한 줄 레이블과 높이가 같아야 한다. */
+export const NoWrap: Story = {
+  render: (args) => (
+    <div className="flex w-16 items-start gap-2">
+      <Button {...args}>A</Button>
+      <Button {...args}>저장하기</Button>
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const short = canvas.getByRole('button', { name: 'A' }).getBoundingClientRect().height
+    const long = canvas.getByRole('button', { name: '저장하기' }).getBoundingClientRect().height
+    await expect(long).toBe(short)
+  },
+}

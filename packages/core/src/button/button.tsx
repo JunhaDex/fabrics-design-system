@@ -3,10 +3,15 @@ import { Slot } from 'radix-ui'
 import { tv, type VariantProps } from 'tailwind-variants'
 import { layoutClass } from '../utils/layout-class'
 
+/** 면이 있는 컨트롤의 그림자와 누름 상태. 테마가 슬롯으로 채운다(neutral 은 없음). */
+export const pressable =
+  'shadow-control active:translate-x-press active:translate-y-press active:shadow-control-pressed'
+
 export const button = tv({
   slots: {
     root: [
-      'inline-flex items-center justify-center gap-2 font-medium',
+      // 한글은 음절 사이에서 줄바꿈되므로 좁은 행에서 레이블이 두 줄로 갈라지지 않게 막는다.
+      'inline-flex items-center justify-center gap-2 font-medium whitespace-nowrap',
       'rounded-control px-control-x py-control-y',
       'outline-none focus-visible:ring-2 focus-visible:ring-ring',
       'disabled:pointer-events-none disabled:opacity-50',
@@ -14,11 +19,14 @@ export const button = tv({
   },
   variants: {
     variant: {
-      primary: { root: 'bg-brand text-on-brand hover:bg-brand-hover' },
+      primary: { root: ['bg-brand text-on-brand hover:bg-brand-hover', pressable] },
       secondary: {
-        root: 'border border-border bg-surface-raised text-on-surface hover:border-border-strong',
+        root: [
+          'border border-border bg-surface-raised text-on-surface hover:border-border-strong',
+          pressable,
+        ],
       },
-      danger: { root: 'bg-danger text-on-danger' },
+      danger: { root: ['bg-danger text-on-danger', pressable] },
       ghost: { root: 'text-on-surface hover:bg-surface-raised' },
     },
     size: {

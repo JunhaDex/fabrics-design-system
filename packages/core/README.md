@@ -22,6 +22,19 @@ GitHub Packages는 공개 패키지도 인증을 요구하므로, `~/.npmrc`에
 pnpm add @junhadex/core @junhadex/theme-neutral
 ```
 
+## 테마
+
+테마는 빌드 시점에 하나만 설치하고 import한다. 밀도는 테마에 고정되어 있다.
+
+| 패키지 | 특징 | 밀도 (sm 컨트롤 높이) |
+|---|---|---|
+| `@junhadex/theme-neutral` | 기준 테마. 얇은 회색 선, 작은 radius | 기준 (36px) |
+| `@junhadex/theme-brutalism` | 굵은 외곽선, 하드 오프셋 그림자, 직각, 고대비 | compact (28px) |
+| `@junhadex/theme-tactile-surface` | 면과 같은 색의 컨트롤, 밝은·어두운 그림자 쌍으로 볼록·오목 | comfortable (40px) |
+
+아래 예시의 `theme-neutral`을 원하는 테마 패키지로 바꾼다. 모드(light/dark)는 어느 테마든
+`<html data-mode>`로 런타임에 전환한다.
+
 ## 소비 프로젝트 계약
 
 Tailwind v4가 필수다. 앱의 CSS 진입점에 아래를 추가한다.

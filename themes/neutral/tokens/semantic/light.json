@@ -50,6 +50,9 @@
       "border-strong": {
         "$value": "{color.gray.300}"
       },
+      "border-field": {
+        "$value": "{color.gray.500}"
+      },
       "ring": {
         "$value": "{color.blue.500}"
       },

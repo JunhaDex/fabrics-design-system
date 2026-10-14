@@ -1,0 +1,210 @@
+{
+  "sem": {
+    "color": {
+      "$type": "color",
+      "surface": {
+        "$value": "{color.amber.50}"
+      },
+      "surface-raised": {
+        "$value": "{color.white}"
+      },
+      "surface-overlay": {
+        "$value": "{color.white}"
+      },
+      "surface-inverse": {
+        "$value": "{color.gray.900}"
+      },
+      "on-surface-inverse": {
+        "$value": "{color.gray.50}"
+      },
+      "field": {
+        "$value": "{color.white}"
+      },
+      "track": {
+        "$value": "{color.gray.300}"
+      },
+      "on-surface": {
+        "$value": "{color.black}"
+      },
+      "on-surface-muted": {
+        "$value": "{color.gray.700}"
+      },
+      "brand": {
+        "$value": "{color.gray.950}"
+      },
+      "brand-hover": {
+        "$value": "{color.gray.800}"
+      },
+      "on-brand": {
+        "$value": "{color.yellow.300}"
+      },
+      "brand-subtle": {
+        "$value": "{color.amber.100}"
+      },
+      "on-brand-subtle": {
+        "$value": "{color.gray.950}"
+      },
+      "border": {
+        "$value": "{color.black}"
+      },
+      "border-strong": {
+        "$value": "{color.black}"
+      },
+      "border-field": {
+        "$value": "{color.black}"
+      },
+      "ring": {
+        "$value": "{color.blue.600}"
+      },
+      "danger": {
+        "$value": "{color.red.600}"
+      },
+      "on-danger": {
+        "$value": "{color.white}"
+      },
+      "success": {
+        "$value": "{color.green.700}"
+      },
+      "on-success": {
+        "$value": "{color.white}"
+      },
+      "warning": {
+        "$value": "{color.amber.600}"
+      },
+      "on-warning": {
+        "$value": "{color.gray.950}"
+      },
+      "info": {
+        "$value": "{color.blue.600}"
+      },
+      "on-info": {
+        "$value": "{color.white}"
+      },
+      "neutral": {
+        "$value": "{color.gray.700}"
+      },
+      "on-neutral": {
+        "$value": "{color.white}"
+      },
+      "info-subtle": {
+        "$value": "{color.blue.50}"
+      },
+      "on-info-subtle": {
+        "$value": "{color.blue.700}"
+      },
+      "success-subtle": {
+        "$value": "{color.green.50}"
+      },
+      "on-success-subtle": {
+        "$value": "{color.green.700}"
+      },
+      "warning-subtle": {
+        "$value": "{color.amber.50}"
+      },
+      "on-warning-subtle": {
+        "$value": "{color.amber.700}"
+      },
+      "danger-subtle": {
+        "$value": "{color.red.50}"
+      },
+      "on-danger-subtle": {
+        "$value": "{color.red.700}"
+      },
+      "neutral-subtle": {
+        "$value": "{color.gray.100}"
+      },
+      "on-neutral-subtle": {
+        "$value": "{color.gray.700}"
+      },
+      "scrim": {
+        "$value": "rgba(9, 9, 11, 0.5)"
+      }
+    },
+    "shadow": {
+      "$type": "shadow",
+      "control": {
+        "$value": [
+          {
+            "offsetX": "0px",
+            "offsetY": "0px",
+            "blur": "0px",
+            "spread": "2px",
+            "color": "{color.black}"
+          },
+          {
+            "offsetX": "4px",
+            "offsetY": "4px",
+            "blur": "0px",
+            "spread": "0px",
+            "color": "{color.black}"
+          }
+        ]
+      },
+      "control-pressed": {
+        "$value": [
+          {
+            "offsetX": "0px",
+            "offsetY": "0px",
+            "blur": "0px",
+            "spread": "2px",
+            "color": "{color.black}"
+          }
+        ]
+      },
+      "field": {
+        "$value": [
+          {
+            "offsetX": "0px",
+            "offsetY": "0px",
+            "blur": "0px",
+            "spread": "2px",
+            "color": "{color.black}"
+          },
+          {
+            "offsetX": "2px",
+            "offsetY": "2px",
+            "blur": "0px",
+            "spread": "0px",
+            "color": "{color.black}"
+          }
+        ]
+      },
+      "raised": {
+        "$value": [
+          {
+            "offsetX": "0px",
+            "offsetY": "0px",
+            "blur": "0px",
+            "spread": "2px",
+            "color": "{color.black}"
+          },
+          {
+            "offsetX": "4px",
+            "offsetY": "4px",
+            "blur": "0px",
+            "spread": "0px",
+            "color": "{color.black}"
+          }
+        ]
+      },
+      "overlay": {
+        "$value": [
+          {
+            "offsetX": "0px",
+            "offsetY": "0px",
+            "blur": "0px",
+            "spread": "2px",
+            "color": "{color.black}"
+          },
+          {
+            "offsetX": "6px",
+            "offsetY": "6px",
+            "blur": "0px",
+            "spread": "0px",
+            "color": "{color.black}"
+          }
+        ]
+      }
+    }
+  }
+}

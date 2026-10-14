@@ -1,5 +1,15 @@
 @import 'tailwindcss';
-@import '@junhadex/theme-neutral/theme.css';
+/*
+ * 테마는 <html data-theme> 로 전환한다(preview.tsx 툴바). 소비 프로젝트의 theme.css 는 :root 에
+ * 테마 하나를 걸지만, 여기서는 테마와 무관한 원시 토큰·브리지·모션을 한 번만 가져오고
+ * 테마마다 스코프 빌드(theme.scoped.css)를 얹는다.
+ */
+@import '@junhadex/tokens/primitives.css';
+@import '@junhadex/tokens/bridge.css';
+@import '@junhadex/tokens/motion.css';
+@import '@junhadex/theme-neutral/theme.scoped.css';
+@import '@junhadex/theme-brutalism/theme.scoped.css';
+@import '@junhadex/theme-tactile-surface/theme.scoped.css';
 /* core 의 dist 에 포함된 Tailwind 클래스를 스캔한다. 소비 프로젝트도 동일하게 추가해야 한다. */
 @source '../node_modules/@junhadex/core/dist';
 

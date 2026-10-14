@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite'
 import { expect, within } from 'storybook/test'
 import { Moon } from 'lucide'
 import { Button, Icon, TopBar } from '@junhadex/core'
+import { slotPx } from './slot'
 
 const meta = {
   title: 'Core/TopBar',
@@ -34,7 +35,7 @@ export const Default: Story = {
 
     // 행 높이는 sem.spacing.bar, safe-area 가 없으면 좌우 여백은 1rem 이다.
     const row = getComputedStyle(bar.firstElementChild!)
-    await expect(row.height).toBe('56px')
+    await expect(row.height).toBe(`${slotPx('spacing-bar')}px`)
     await expect(row.paddingLeft).toBe('16px')
     await expect(row.paddingRight).toBe('16px')
 

@@ -44,6 +44,9 @@ StyleDictionary.registerFormat({
         (t) =>
           `@utility ${t.name.slice(4)} {\n  --tw-duration: var(--${t.name});\n  transition-duration: var(--${t.name});\n}`,
       )
+    // 문서 기본 글꼴은 Tailwind preflight 가 읽는 --default-font-family 로 잇는다.
+    // --font-sans 를 덮으면 슬롯 기본값({font.sans})과 순환하므로 쓰지 않는다.
+    vars.push('  --default-font-family: var(--sem-font-body);')
     return `@theme inline {\n${vars.join('\n')}\n}\n\n${utilities.join('\n\n')}\n`
   },
 })
@@ -51,17 +54,18 @@ StyleDictionary.registerFormat({
 // 모션 무력화는 슬롯 한 곳에서 건다. 테마가 채운 값보다 뒤에 와야 이긴다.
 StyleDictionary.registerFormat({
   name: 'css/reduced-motion',
-  format: ({ dictionary }) =>
-    `@media (prefers-reduced-motion: reduce) {\n  :root {\n${dictionary.allTokens
+  format: ({ dictionary, options }) =>
+    `@media (prefers-reduced-motion: reduce) {\n  ${options.selector ?? ':root'} {\n${dictionary.allTokens
       .map((t) => `    --${t.name}: 1ms;`)
       .join('\n')}\n  }\n}\n`,
 })
 
 // slots 값 → selector 블록 (:root / [data-mode="..."]) 런타임 전환용
+// colorScheme 을 주면 스크롤바·기본 폼 컨트롤도 모드를 따르도록 color-scheme 을 함께 건다.
 StyleDictionary.registerFormat({
   name: 'css/mode-variables',
   format: ({ dictionary, options }) =>
-    `${options.selector} {\n${dictionary.allTokens
+    `${options.selector} {\n${options.colorScheme ? `  color-scheme: ${options.colorScheme};\n` : ''}${dictionary.allTokens
       .map((t) => `  --${t.name}: ${refOrValue(t)};`)
       .join('\n')}\n}\n`,
 })

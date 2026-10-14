@@ -6,7 +6,7 @@ import { layoutClass } from '../utils/layout-class'
 
 export const alert = tv({
   slots: {
-    root: 'flex gap-3 rounded-surface p-control-x',
+    root: 'flex gap-3 rounded-surface p-control-x shadow-raised',
     body: 'flex min-w-0 flex-col gap-1',
     title: 'font-medium',
     description: 'text-sm',

@@ -1,0 +1,73 @@
+{
+  "sem": {
+    "radius": {
+      "$type": "dimension",
+      "control": {
+        "$value": "{radius.xl}"
+      },
+      "surface": {
+        "$value": "{radius.2xl}"
+      }
+    },
+    "spacing": {
+      "$type": "dimension",
+      "control-x": {
+        "$value": "{spacing.4}"
+      },
+      "control-y": {
+        "$value": "0.625rem"
+      },
+      "stack": {
+        "$value": "{spacing.6}"
+      },
+      "field-gap": {
+        "$value": "0.625rem"
+      },
+      "cell-x": {
+        "$value": "{spacing.5}"
+      },
+      "cell-y": {
+        "$value": "{spacing.3}"
+      },
+      "bar": {
+        "$value": "{spacing.16}"
+      },
+      "nav": {
+        "$value": "{spacing.64}"
+      },
+      "press": {
+        "$value": "{spacing.0}"
+      }
+    },
+    "duration": {
+      "$type": "duration",
+      "fast": {
+        "$value": "{duration.instant}"
+      },
+      "base": {
+        "$value": "{duration.quick}"
+      },
+      "slow": {
+        "$value": "{duration.moderate}"
+      }
+    },
+    "ease": {
+      "$type": "cubicBezier",
+      "standard": {
+        "$value": "{ease.in-out}"
+      },
+      "enter": {
+        "$value": "{ease.out}"
+      },
+      "exit": {
+        "$value": "{ease.in}"
+      }
+    },
+    "font": {
+      "$type": "fontFamily",
+      "body": {
+        "$value": "{font.sans}"
+      }
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "name": "@junhadex/theme-brutalism",
+  "version": "0.4.0",
+  "description": "fabrics brutalism 테마. 굵은 선, 하드 오프셋 그림자, 고대비 색, compact 밀도.",
+  "type": "module",
+  "files": [
+    "dist",
+    "tokens",
+    "src"
+  ],
+  "exports": {
+    "./theme.css": "./dist/theme.css",
+    "./theme.scoped.css": "./dist/theme.scoped.css"
+  },
+  "scripts": {
+    "build": "node build.js"
+  },
+  "dependencies": {
+    "@junhadex/tokens": "workspace:*"
+  },
+  "devDependencies": {
+    "style-dictionary": "catalog:"
+  }
+}

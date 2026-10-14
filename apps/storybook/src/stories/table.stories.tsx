@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { expect, within } from 'storybook/test'
 import { Table, type TableColumn } from '@junhadex/core'
+import { slotPx } from './slot'
 
 interface Fabric {
   code: string
@@ -84,8 +85,8 @@ export const Alignment: Story = {
     const canvas = within(canvasElement)
     const cells = canvas.getAllByRole('cell')
     const style = getComputedStyle(cells[0])
-    await expect(style.paddingLeft).toBe('16px')
-    await expect(style.paddingTop).toBe('8px')
+    await expect(style.paddingLeft).toBe(`${slotPx('spacing-cell-x')}px`)
+    await expect(style.paddingTop).toBe(`${slotPx('spacing-cell-y')}px`)
     await expect(style.textAlign).toBe('left')
     await expect(getComputedStyle(cells[2]).textAlign).toBe('right')
   },

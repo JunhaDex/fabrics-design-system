@@ -8,7 +8,7 @@ export const switchStyles = tv({
   slots: {
     root: 'inline-flex items-center gap-2',
     control: [
-      'inline-flex h-5 w-9 shrink-0 items-center rounded-full p-0.5',
+      'inline-flex h-5 w-9 shrink-0 items-center rounded-full p-0.5 shadow-field',
       // 꺼진 상태의 트랙은 페이지 배경과 3:1 이상 구분돼야 한다(WCAG 2.2 1.4.11).
       // on-surface-muted 가 본문 대비를 보장하는 유일한 중간 회색이라 이 값을 쓴다.
       'bg-on-surface-muted data-[state=checked]:bg-brand',

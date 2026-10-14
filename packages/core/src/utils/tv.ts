@@ -8,7 +8,17 @@ import { createTV } from 'tailwind-variants'
 export const tv = createTV({
   twMergeConfig: {
     theme: {
-      spacing: ['control-x', 'control-y', 'stack', 'field-gap', 'cell-x', 'cell-y', 'bar', 'nav'],
+      spacing: [
+        'control-x',
+        'control-y',
+        'stack',
+        'field-gap',
+        'cell-x',
+        'cell-y',
+        'bar',
+        'nav',
+        'press',
+      ],
     },
   },
 })

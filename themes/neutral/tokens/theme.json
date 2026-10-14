@@ -12,10 +12,19 @@
     "shadow": {
       "$type": "shadow",
       "raised": {
-        "$value": "{shadow.sm}"
+        "$value": "{shadow.none}"
       },
       "overlay": {
         "$value": "{shadow.lg}"
+      },
+      "control": {
+        "$value": "{shadow.none}"
+      },
+      "control-pressed": {
+        "$value": "{shadow.none}"
+      },
+      "field": {
+        "$value": "{shadow.none}"
       }
     },
     "spacing": {
@@ -43,6 +52,9 @@
       },
       "nav": {
         "$value": "{spacing.56}"
+      },
+      "press": {
+        "$value": "{spacing.0}"
       }
     },
     "duration": {
@@ -67,6 +79,12 @@
       },
       "exit": {
         "$value": "{ease.in}"
+      }
+    },
+    "font": {
+      "$type": "fontFamily",
+      "body": {
+        "$value": "{font.sans}"
       }
     }
   }

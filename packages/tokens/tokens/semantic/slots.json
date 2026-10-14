@@ -64,6 +64,10 @@
       "border-strong": {
         "$value": "{color.gray.300}"
       },
+      "border-field": {
+        "$value": "{color.gray.500}",
+        "$description": "입력 필드(Input, Textarea, Select, Checkbox, Radio) 경계. 필드 면·페이지 면과 3:1 이상(WCAG 1.4.11)"
+      },
       "ring": {
         "$value": "{color.blue.500}",
         "$description": "포커스 링"
@@ -163,10 +167,23 @@
     "shadow": {
       "$type": "shadow",
       "raised": {
-        "$value": "{shadow.sm}"
+        "$value": "{shadow.sm}",
+        "$description": "테두리 있는 면(Alert, Accordion)"
       },
       "overlay": {
         "$value": "{shadow.lg}"
+      },
+      "control": {
+        "$value": "{shadow.none}",
+        "$description": "누를 수 있는 컨트롤(Button, Toggle). 외곽선·하드 그림자·이중 그림자를 담는다"
+      },
+      "control-pressed": {
+        "$value": "{shadow.none}",
+        "$description": "컨트롤 누름(active) 상태"
+      },
+      "field": {
+        "$value": "{shadow.none}",
+        "$description": "입력 필드(Input, Textarea, Select, Checkbox, Radio, Switch 트랙)"
       }
     },
     "spacing": {
@@ -202,6 +219,10 @@
       "nav": {
         "$value": "{spacing.56}",
         "$description": "SideNav 폭 (밀도)"
+      },
+      "press": {
+        "$value": "{spacing.0}",
+        "$description": "컨트롤을 누를 때 오른쪽 아래로 이동하는 거리"
       }
     },
     "duration": {
@@ -232,6 +253,13 @@
       "exit": {
         "$value": "{ease.in}",
         "$description": "사라질 때 — 천천히 시작해 빠르게 빠진다"
+      }
+    },
+    "font": {
+      "$type": "fontFamily",
+      "body": {
+        "$value": "{font.sans}",
+        "$description": "문서 기본 글꼴(Tailwind --default-font-family)"
       }
     }
   }

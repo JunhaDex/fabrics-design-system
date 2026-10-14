@@ -31,3 +31,4 @@ pnpm add @junhadex/tokens
 | `@junhadex/tokens/primitives.css` | 원시 토큰 CSS 변수 |
 | `@junhadex/tokens/bridge.css` | 의미 슬롯 → Tailwind `@theme` 매핑 |
 | `@junhadex/tokens/sd.config.js` | 테마 패키지가 재사용하는 Style Dictionary 설정 |
+| `@junhadex/tokens/build-theme.js` | 테마 패키지 빌드(`theme.css`, `theme.scoped.css` 생성) |

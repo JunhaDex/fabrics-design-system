@@ -74,9 +74,18 @@ importers:
       '@junhadex/core':
         specifier: workspace:*
         version: link:../../packages/core
+      '@junhadex/theme-brutalism':
+        specifier: workspace:*
+        version: link:../../themes/brutalism
       '@junhadex/theme-neutral':
         specifier: workspace:*
         version: link:../../themes/neutral
+      '@junhadex/theme-tactile-surface':
+        specifier: workspace:*
+        version: link:../../themes/tactile-surface
+      '@junhadex/tokens':
+        specifier: workspace:*
+        version: link:../../packages/tokens
       react:
         specifier: 'catalog:'
         version: 19.3.0
@@ -215,7 +224,27 @@ importers:
         specifier: 'catalog:'
         version: 5.5.5
 
+  themes/brutalism:
+    dependencies:
+      '@junhadex/tokens':
+        specifier: workspace:*
+        version: link:../../packages/tokens
+    devDependencies:
+      style-dictionary:
+        specifier: 'catalog:'
+        version: 5.5.5
+
   themes/neutral:
+    dependencies:
+      '@junhadex/tokens':
+        specifier: workspace:*
+        version: link:../../packages/tokens
+    devDependencies:
+      style-dictionary:
+        specifier: 'catalog:'
+        version: 5.5.5
+
+  themes/tactile-surface:
     dependencies:
       '@junhadex/tokens':
         specifier: workspace:*

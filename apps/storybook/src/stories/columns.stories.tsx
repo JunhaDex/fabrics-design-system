@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { expect, within } from 'storybook/test'
 import { Columns } from '@junhadex/core'
+import { slotPx } from './slot'
 
 const panel = (label: string) => (
   <div key={label} className="rounded-surface bg-surface-raised p-4">
@@ -23,7 +24,7 @@ const columnCount = (root: HTMLElement) =>
   new Set([...root.firstElementChild!.children].map((c) => Math.round(c.getBoundingClientRect().x)))
     .size
 
-/** 영역이 48rem 이상이면 `cols` 만큼 펼친다. 간격은 stack 슬롯(1rem). */
+/** 영역이 48rem 이상이면 `cols` 만큼 펼친다. 간격은 stack 슬롯. */
 export const Wide: Story = {
   render: (args) => (
     <div className="w-[800px]">
@@ -33,7 +34,9 @@ export const Wide: Story = {
   play: async ({ canvasElement }) => {
     const root = within(canvasElement).getByTestId('columns')
     await expect(columnCount(root)).toBe(3)
-    await expect(getComputedStyle(root.firstElementChild!).columnGap).toBe('16px')
+    await expect(getComputedStyle(root.firstElementChild!).columnGap).toBe(
+      `${slotPx('spacing-stack')}px`,
+    )
   },
 }
 

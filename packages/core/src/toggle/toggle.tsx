@@ -1,13 +1,15 @@
 import type { ComponentProps } from 'react'
 import { Toggle as TogglePrimitive } from 'radix-ui'
 import { tv, type VariantProps } from 'tailwind-variants'
+import { pressable } from '../button/button'
 import { layoutClass } from '../utils/layout-class'
 
 export const toggle = tv({
   slots: {
     root: [
-      'inline-flex items-center justify-center gap-2 font-medium',
+      'inline-flex items-center justify-center gap-2 font-medium whitespace-nowrap',
       'rounded-control px-control-x py-control-y text-on-surface',
+      pressable,
       'hover:bg-surface-raised',
       'data-[state=on]:bg-brand data-[state=on]:text-on-brand',
       'outline-none focus-visible:ring-2 focus-visible:ring-ring',

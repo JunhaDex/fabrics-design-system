@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite'
 import type { CSSProperties } from 'react'
 import { expect, within } from 'storybook/test'
 import { contrast } from './contrast'
+import { slotPx } from './slot'
 
 const colors = [
   'surface',
@@ -50,8 +51,11 @@ export const Colors: StoryObj = {
     // scrim 은 투명도까지 슬롯 값에 담는다. 모드마다 값이 바뀌는지 확인한다.
     root.dataset.mode = 'light'
     await expect(getComputedStyle(scrim).backgroundColor).toBe('rgba(9, 9, 11, 0.5)')
+    await expect(getComputedStyle(root).colorScheme).toBe('light')
     root.dataset.mode = 'dark'
     await expect(getComputedStyle(scrim).backgroundColor).toBe('rgba(0, 0, 0, 0.7)')
+    // 스크롤바·기본 폼 컨트롤도 모드를 따른다.
+    await expect(getComputedStyle(root).colorScheme).toBe('dark')
 
     root.dataset.mode = initial ?? 'light'
   },
@@ -239,11 +243,116 @@ export const Density: StoryObj = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
     const style = getComputedStyle(canvas.getByTestId('cell'))
-    await expect(style.paddingLeft).toBe('16px')
-    await expect(style.paddingTop).toBe('8px')
+    await expect(style.paddingLeft).toBe(`${slotPx('spacing-cell-x')}px`)
+    await expect(style.paddingTop).toBe(`${slotPx('spacing-cell-y')}px`)
 
     const bar = getComputedStyle(canvas.getByTestId('bar'))
-    await expect(bar.height).toBe('56px')
-    await expect(bar.width).toBe('224px')
+    await expect(bar.height).toBe(`${slotPx('spacing-bar')}px`)
+    await expect(bar.width).toBe(`${slotPx('spacing-nav')}px`)
+  },
+}
+
+/**
+ * 면·누름 슬롯(그림자, 누름 이동, 기본 글꼴). 테마가 외곽선·하드 그림자·이중 그림자를 그림자 슬롯에 담으므로
+ * 포커스 링과 한 `box-shadow` 로 합성돼야 한다. 슬롯 값을 인라인으로 덮어 테마와 무관하게 확인한다.
+ */
+export const Elevation: StoryObj = {
+  render: () => (
+    <div className="flex flex-col items-start gap-4">
+      <div className="size-8 shadow-control ring-2 ring-ring" data-testid="control" />
+      <div className="size-8 translate-x-press translate-y-press" data-testid="press" />
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const control = canvas.getByTestId('control')
+    const press = canvas.getByTestId('press')
+
+    control.style.setProperty('--sem-shadow-control', '4px 4px 0px 0px rgb(1, 2, 3)')
+    const shadow = getComputedStyle(control).boxShadow
+    await expect(shadow).toContain('rgb(1, 2, 3) 4px 4px 0px 0px')
+    await expect(shadow).toContain('0px 0px 0px 2px')
+
+    press.style.setProperty('--sem-spacing-press', '4px')
+    await expect(getComputedStyle(press).translate).toBe('4px 4px')
+  },
+}
+
+/** neutral 은 새 면·누름 슬롯을 비워 v0.4 와 같은 모양을 유지한다. */
+export const NeutralElevation: StoryObj = {
+  tags: ['neutral-only'],
+  render: () => (
+    <div className="flex flex-col items-start gap-4">
+      {['shadow-control', 'shadow-control-pressed', 'shadow-field', 'shadow-raised'].map((c) => (
+        <div key={c} className={`size-8 ${c}`} data-testid={c} />
+      ))}
+      <div className="size-8 translate-x-press translate-y-press" data-testid="press" />
+      <div className="size-8 shadow-none" data-testid="none" />
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    // box-shadow 는 링·그림자 레이어가 합성된 값이라 shadow-none 과 같은지로 비교한다.
+    const transparent = getComputedStyle(canvas.getByTestId('none')).boxShadow
+    for (const c of ['shadow-control', 'shadow-control-pressed', 'shadow-field', 'shadow-raised'])
+      await expect(getComputedStyle(canvas.getByTestId(c)).boxShadow).toBe(transparent)
+    // 두 축이 모두 0 이면 계산값이 한 값으로 줄어든다.
+    await expect(getComputedStyle(canvas.getByTestId('press')).translate).toBe('0px')
+    await expect(getComputedStyle(document.body).fontFamily).toBe(
+      'Pretendard, Inter, system-ui, sans-serif',
+    )
+  },
+}
+
+/** 스타일시트의 규칙을 미디어 블록까지 펼쳐 문서 순서대로 나열한다. */
+const flatRules = () => {
+  const out: { rule: CSSStyleRule; media?: string }[] = []
+  const walk = (rules: CSSRuleList, media?: string) => {
+    for (const rule of rules) {
+      if (rule instanceof CSSMediaRule) walk(rule.cssRules, rule.conditionText)
+      else if (rule instanceof CSSStyleRule) out.push({ rule, media })
+    }
+  }
+  for (const sheet of document.styleSheets) walk(sheet.cssRules)
+  return out
+}
+
+/**
+ * 테마 스코프. Storybook 은 `theme.scoped.css` 를 써서 슬롯 값을 `<html data-theme>` 아래에만 건다.
+ * 테마 속성이 없으면 슬롯이 비고, 있으면 채워진다.
+ */
+export const ThemeScope: StoryObj = {
+  // neutral 의 색 값을 고정하므로 다른 테마 프로젝트에서는 뺀다.
+  tags: ['neutral-only'],
+  render: () => <div className="size-8 bg-surface-inverse" data-testid="swatch" />,
+  play: async ({ canvasElement }) => {
+    const swatch = within(canvasElement).getByTestId('swatch')
+    const root = document.documentElement
+    const initial = root.dataset.theme
+    // 테스트 프로젝트가 넣은 테마로 시작한다(vite.config.ts → preview.tsx).
+    await expect(initial).toBe(import.meta.env.VITE_THEME)
+
+    delete root.dataset.theme
+    await expect(getComputedStyle(swatch).backgroundColor).toBe('rgba(0, 0, 0, 0)')
+    root.dataset.theme = 'neutral'
+    await expect(getComputedStyle(swatch).backgroundColor).toBe('rgb(24, 24, 27)')
+
+    // 스코프 값은 :root 보다 우선하므로 reduced-motion 덮어쓰기도 같은 스코프로, 테마 값보다 뒤에 와야 이긴다.
+    // 미디어 쿼리는 테스트에서 켤 수 없어 규칙 순서로 확인한다.
+    const rules = flatRules()
+    const scope = '[data-theme="neutral"]'
+    const value = rules.findIndex(
+      (r) =>
+        !r.media &&
+        r.rule.selectorText === scope &&
+        r.rule.style.getPropertyValue('--sem-duration-base'),
+    )
+    const reduced = rules.findIndex(
+      (r) => r.media?.includes('prefers-reduced-motion') && r.rule.selectorText === scope,
+    )
+    await expect(value).toBeGreaterThanOrEqual(0)
+    await expect(reduced).toBeGreaterThan(value)
+
+    root.dataset.theme = initial ?? 'neutral'
   },
 }

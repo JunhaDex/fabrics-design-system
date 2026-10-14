@@ -3,6 +3,7 @@ import { expect, within } from 'storybook/test'
 import { BottomTabBar } from '@junhadex/core'
 import { contrast } from './contrast'
 import { eachMode, navItems, TestLink } from './nav-items'
+import { slotPx } from './slot'
 
 const meta = {
   title: 'Core/BottomTabBar',
@@ -30,7 +31,9 @@ export const Default: Story = {
     await expect(style.position).toBe('sticky')
     await expect(style.bottom).toBe('0px')
     await expect(style.zIndex).toBe('10')
-    await expect(links[0].getBoundingClientRect().height).toBeGreaterThanOrEqual(56)
+    await expect(links[0].getBoundingClientRect().height).toBeGreaterThanOrEqual(
+      slotPx('spacing-bar'),
+    )
     await expect(links[0].querySelector('svg')!.getBoundingClientRect().width).toBe(24)
 
     const [home, closet] = links.map((l) => getComputedStyle(l))

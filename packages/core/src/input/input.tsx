@@ -5,7 +5,7 @@ import { layoutClass } from '../utils/layout-class'
 export const input = tv({
   slots: {
     root: [
-      'w-full rounded-control border border-border bg-field text-on-surface',
+      'w-full rounded-control border border-border-field bg-field text-on-surface shadow-field',
       'px-control-x py-control-y',
       'placeholder:text-on-surface-muted',
       'outline-none focus-visible:ring-2 focus-visible:ring-ring',

@@ -36,3 +36,7 @@ pnpm add @junhadex/theme-neutral
 ```
 
 `theme.css`는 원시 토큰, 의미 슬롯, light/dark 모드를 포함한 단일 번들이다.
+
+`theme.scoped.css`는 여러 테마를 한 문서에서 전환하는 미리보기(Storybook)용이다.
+슬롯 값을 `[data-theme="neutral"]` 아래에만 담으므로, 원시 토큰·브리지·모션은
+`@junhadex/tokens`에서 따로 가져온다. 소비 프로젝트는 `theme.css`를 쓴다.

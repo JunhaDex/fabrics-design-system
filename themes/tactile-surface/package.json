@@ -1,0 +1,24 @@
+{
+  "name": "@junhadex/theme-tactile-surface",
+  "version": "0.4.0",
+  "description": "fabrics tactile-surface 테마. 면과 같은 색의 컨트롤을 밝은·어두운 그림자 한 쌍으로 볼록·오목하게 표현, comfortable 밀도.",
+  "type": "module",
+  "files": [
+    "dist",
+    "tokens",
+    "src"
+  ],
+  "exports": {
+    "./theme.css": "./dist/theme.css",
+    "./theme.scoped.css": "./dist/theme.scoped.css"
+  },
+  "scripts": {
+    "build": "node build.js"
+  },
+  "dependencies": {
+    "@junhadex/tokens": "workspace:*"
+  },
+  "devDependencies": {
+    "style-dictionary": "catalog:"
+  }
+}
