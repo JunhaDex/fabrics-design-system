@@ -269,11 +269,15 @@ const flatRules = () => {
  * 테마 속성이 없으면 슬롯이 비고, 있으면 채워진다.
  */
 export const ThemeScope: StoryObj = {
+  // neutral 의 색 값을 고정하므로 다른 테마 프로젝트에서는 뺀다.
+  tags: ['neutral-only'],
   render: () => <div className="size-8 bg-surface-inverse" data-testid="swatch" />,
   play: async ({ canvasElement }) => {
     const swatch = within(canvasElement).getByTestId('swatch')
     const root = document.documentElement
     const initial = root.dataset.theme
+    // 테스트 프로젝트가 넣은 테마로 시작한다(vite.config.ts → preview.tsx).
+    await expect(initial).toBe(import.meta.env.VITE_THEME)
 
     delete root.dataset.theme
     await expect(getComputedStyle(swatch).backgroundColor).toBe('rgba(0, 0, 0, 0)')
