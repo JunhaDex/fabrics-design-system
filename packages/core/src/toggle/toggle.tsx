@@ -7,7 +7,7 @@ import { layoutClass } from '../utils/layout-class'
 export const toggle = tv({
   slots: {
     root: [
-      'inline-flex items-center justify-center gap-2 font-medium',
+      'inline-flex items-center justify-center gap-2 font-medium whitespace-nowrap',
       'rounded-control px-control-x py-control-y text-on-surface',
       pressable,
       'hover:bg-surface-raised',

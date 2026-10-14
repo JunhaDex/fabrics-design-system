@@ -65,3 +65,12 @@ export const InField: Story = {
     await expect(checkbox).toBeRequired()
   },
 }
+
+/** radius 가 큰 테마에서도 원이 되지 않아 Radio 와 모양으로 구분된다. 모든 테마에서 확인한다. */
+export const DistinctFromRadio: Story = {
+  play: async ({ canvasElement }) => {
+    const checkbox = within(canvasElement).getByRole('checkbox', { name: '약관에 동의합니다' })
+    const radius = parseFloat(getComputedStyle(checkbox).borderTopLeftRadius)
+    await expect(radius).toBeLessThanOrEqual(4)
+  },
+}

@@ -10,7 +10,8 @@ export const pressable =
 export const button = tv({
   slots: {
     root: [
-      'inline-flex items-center justify-center gap-2 font-medium',
+      // 한글은 음절 사이에서 줄바꿈되므로 좁은 행에서 레이블이 두 줄로 갈라지지 않게 막는다.
+      'inline-flex items-center justify-center gap-2 font-medium whitespace-nowrap',
       'rounded-control px-control-x py-control-y',
       'outline-none focus-visible:ring-2 focus-visible:ring-ring',
       'disabled:pointer-events-none disabled:opacity-50',
