@@ -8,7 +8,7 @@ import { layoutClass } from '../utils/layout-class'
 
 export const accordion = tv({
   slots: {
-    root: 'divide-y divide-border overflow-hidden rounded-surface border border-border',
+    root: 'divide-y divide-border overflow-hidden rounded-surface border border-border shadow-raised',
     header: 'flex',
     trigger: [
       'group flex flex-1 items-center justify-between gap-2 p-control-x text-left font-medium',

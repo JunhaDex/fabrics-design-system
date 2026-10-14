@@ -251,6 +251,58 @@ export const Density: StoryObj = {
   },
 }
 
+/**
+ * 면·누름 슬롯(그림자, 누름 이동, 기본 글꼴). 테마가 외곽선·하드 그림자·이중 그림자를 그림자 슬롯에 담으므로
+ * 포커스 링과 한 `box-shadow` 로 합성돼야 한다. 슬롯 값을 인라인으로 덮어 테마와 무관하게 확인한다.
+ */
+export const Elevation: StoryObj = {
+  render: () => (
+    <div className="flex flex-col items-start gap-4">
+      <div className="size-8 shadow-control ring-2 ring-ring" data-testid="control" />
+      <div className="size-8 translate-x-press translate-y-press" data-testid="press" />
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const control = canvas.getByTestId('control')
+    const press = canvas.getByTestId('press')
+
+    control.style.setProperty('--sem-shadow-control', '4px 4px 0px 0px rgb(1, 2, 3)')
+    const shadow = getComputedStyle(control).boxShadow
+    await expect(shadow).toContain('rgb(1, 2, 3) 4px 4px 0px 0px')
+    await expect(shadow).toContain('0px 0px 0px 2px')
+
+    press.style.setProperty('--sem-spacing-press', '4px')
+    await expect(getComputedStyle(press).translate).toBe('4px 4px')
+  },
+}
+
+/** neutral 은 새 면·누름 슬롯을 비워 v0.4 와 같은 모양을 유지한다. */
+export const NeutralElevation: StoryObj = {
+  tags: ['neutral-only'],
+  render: () => (
+    <div className="flex flex-col items-start gap-4">
+      {['shadow-control', 'shadow-control-pressed', 'shadow-field', 'shadow-raised'].map((c) => (
+        <div key={c} className={`size-8 ${c}`} data-testid={c} />
+      ))}
+      <div className="size-8 translate-x-press translate-y-press" data-testid="press" />
+      <div className="size-8 shadow-none" data-testid="none" />
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    // box-shadow 는 링·그림자 레이어가 합성된 값이라 shadow-none 과 같은지로 비교한다.
+    const transparent = getComputedStyle(canvas.getByTestId('none')).boxShadow
+    for (const c of ['shadow-control', 'shadow-control-pressed', 'shadow-field', 'shadow-raised'])
+      await expect(getComputedStyle(canvas.getByTestId(c)).boxShadow).toBe(transparent)
+    // 두 축이 모두 0 이면 계산값이 한 값으로 줄어든다.
+    await expect(getComputedStyle(canvas.getByTestId('press')).translate).toBe('0px')
+    await expect(getComputedStyle(document.body).fontFamily).toBe(
+      'Pretendard, Inter, system-ui, sans-serif',
+    )
+  },
+}
+
 /** 스타일시트의 규칙을 미디어 블록까지 펼쳐 문서 순서대로 나열한다. */
 const flatRules = () => {
   const out: { rule: CSSStyleRule; media?: string }[] = []

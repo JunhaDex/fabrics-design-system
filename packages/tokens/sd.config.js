@@ -44,6 +44,9 @@ StyleDictionary.registerFormat({
         (t) =>
           `@utility ${t.name.slice(4)} {\n  --tw-duration: var(--${t.name});\n  transition-duration: var(--${t.name});\n}`,
       )
+    // 문서 기본 글꼴은 Tailwind preflight 가 읽는 --default-font-family 로 잇는다.
+    // --font-sans 를 덮으면 슬롯 기본값({font.sans})과 순환하므로 쓰지 않는다.
+    vars.push('  --default-font-family: var(--sem-font-body);')
     return `@theme inline {\n${vars.join('\n')}\n}\n\n${utilities.join('\n\n')}\n`
   },
 })

@@ -11,7 +11,7 @@ export const checkbox = tv({
     root: 'inline-flex items-center gap-2',
     control: [
       'inline-flex size-4 shrink-0 items-center justify-center',
-      'rounded-control border border-border-strong bg-field text-on-brand',
+      'rounded-control border border-border-strong bg-field text-on-brand shadow-field',
       'data-[state=checked]:border-brand data-[state=checked]:bg-brand',
       'data-[state=indeterminate]:border-brand data-[state=indeterminate]:bg-brand',
       'outline-none focus-visible:ring-2 focus-visible:ring-ring',

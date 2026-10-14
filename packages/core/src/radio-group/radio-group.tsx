@@ -10,7 +10,7 @@ export const radioGroup = tv({
     option: 'inline-flex items-center gap-2',
     item: [
       'inline-flex size-4 shrink-0 items-center justify-center',
-      'rounded-full border border-border-strong bg-field',
+      'rounded-full border border-border-strong bg-field shadow-field',
       'data-[state=checked]:border-brand',
       'outline-none focus-visible:ring-2 focus-visible:ring-ring',
       'disabled:pointer-events-none disabled:opacity-50',
