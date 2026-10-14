@@ -28,9 +28,9 @@ pnpm add @junhadex/core @junhadex/theme-neutral
 
 | 패키지 | 특징 | 밀도 (sm 컨트롤 높이) |
 |---|---|---|
-| `@junhadex/theme-neutral` | 기준 테마. 얇은 회색 선, 작은 radius | 기준 (36px) |
-| `@junhadex/theme-brutalism` | 굵은 외곽선, 하드 오프셋 그림자, 직각, 고대비 | compact (28px) |
-| `@junhadex/theme-tactile-surface` | 면과 같은 색의 컨트롤, 밝은·어두운 그림자 쌍으로 볼록·오목 | comfortable (40px) |
+| `@junhadex/theme-neutral` | 기준 테마. 얇은 회색 선, 작은 radius | 기준 (38px) |
+| `@junhadex/theme-brutalism` | 굵은 외곽선, 하드 오프셋 그림자, 직각, 고대비 | compact (30px) |
+| `@junhadex/theme-tactile-surface` | 면과 같은 색의 컨트롤, 밝은·어두운 그림자 쌍으로 볼록·오목 | comfortable (42px) |
 
 아래 예시의 `theme-neutral`을 원하는 테마 패키지로 바꾼다. 모드(light/dark)는 어느 테마든
 `<html data-mode>`로 런타임에 전환한다.

@@ -17,6 +17,9 @@ export const select = tv({
       'aria-invalid:border-danger aria-invalid:focus-visible:ring-danger',
       'transition-colors duration-fast ease-standard',
     ],
+    // 값과 placeholder 가 모두 없으면 높이가 아이콘 크기로 줄어드므로 한 줄 높이를 확보한다.
+    // Radix Value 는 className 을 받지 않으므로 감싸는 span 에 건다.
+    value: 'min-h-lh',
     content: [
       'z-50 overflow-hidden rounded-surface border border-border',
       'bg-surface-overlay text-on-surface shadow-overlay',
@@ -107,7 +110,9 @@ export function Select({
         className={s.trigger({ class: layoutClass(className) })}
         {...aria}
       >
-        <SelectPrimitive.Value placeholder={placeholder} />
+        <span className={s.value()}>
+          <SelectPrimitive.Value placeholder={placeholder} />
+        </span>
         <SelectPrimitive.Icon asChild>
           <Icon node={ChevronDown} size={16} />
         </SelectPrimitive.Icon>
