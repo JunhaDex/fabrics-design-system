@@ -64,6 +64,10 @@
       "border-strong": {
         "$value": "{color.gray.300}"
       },
+      "border-field": {
+        "$value": "{color.gray.500}",
+        "$description": "입력 필드(Input, Textarea, Select, Checkbox, Radio) 경계. 필드 면·페이지 면과 3:1 이상(WCAG 1.4.11)"
+      },
       "ring": {
         "$value": "{color.blue.500}",
         "$description": "포커스 링"

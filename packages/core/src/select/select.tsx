@@ -9,7 +9,7 @@ export const select = tv({
   slots: {
     trigger: [
       'inline-flex w-full items-center justify-between gap-2',
-      'rounded-control border border-border bg-field text-on-surface shadow-field',
+      'rounded-control border border-border-field bg-field text-on-surface shadow-field',
       'px-control-x py-control-y',
       'data-[placeholder]:text-on-surface-muted',
       'outline-none focus-visible:ring-2 focus-visible:ring-ring',
