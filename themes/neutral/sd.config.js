@@ -19,13 +19,13 @@ export const configs = [
       destination: 'root.css',
       format: 'css/mode-variables',
       filter: (t) => t.path[0] === 'sem',
-      options: { selector: ':root' },
+      options: { selector: ':root', colorScheme: 'light' },
     },
     {
       destination: 'mode-light.css',
       format: 'css/mode-variables',
       filter: fromFile('light.json'),
-      options: { selector: '[data-mode="light"]' },
+      options: { selector: '[data-mode="light"]', colorScheme: 'light' },
     },
   ]),
   modeConfig('dark', [
@@ -33,7 +33,7 @@ export const configs = [
       destination: 'mode-dark.css',
       format: 'css/mode-variables',
       filter: fromFile('dark.json'),
-      options: { selector: '[data-mode="dark"]' },
+      options: { selector: '[data-mode="dark"]', colorScheme: 'dark' },
     },
   ]),
 ]

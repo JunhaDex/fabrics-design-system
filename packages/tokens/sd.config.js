@@ -58,10 +58,11 @@ StyleDictionary.registerFormat({
 })
 
 // slots 값 → selector 블록 (:root / [data-mode="..."]) 런타임 전환용
+// colorScheme 을 주면 스크롤바·기본 폼 컨트롤도 모드를 따르도록 color-scheme 을 함께 건다.
 StyleDictionary.registerFormat({
   name: 'css/mode-variables',
   format: ({ dictionary, options }) =>
-    `${options.selector} {\n${dictionary.allTokens
+    `${options.selector} {\n${options.colorScheme ? `  color-scheme: ${options.colorScheme};\n` : ''}${dictionary.allTokens
       .map((t) => `  --${t.name}: ${refOrValue(t)};`)
       .join('\n')}\n}\n`,
 })

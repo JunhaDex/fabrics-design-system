@@ -50,8 +50,11 @@ export const Colors: StoryObj = {
     // scrim 은 투명도까지 슬롯 값에 담는다. 모드마다 값이 바뀌는지 확인한다.
     root.dataset.mode = 'light'
     await expect(getComputedStyle(scrim).backgroundColor).toBe('rgba(9, 9, 11, 0.5)')
+    await expect(getComputedStyle(root).colorScheme).toBe('light')
     root.dataset.mode = 'dark'
     await expect(getComputedStyle(scrim).backgroundColor).toBe('rgba(0, 0, 0, 0.7)')
+    // 스크롤바·기본 폼 컨트롤도 모드를 따른다.
+    await expect(getComputedStyle(root).colorScheme).toBe('dark')
 
     root.dataset.mode = initial ?? 'light'
   },
