@@ -15,6 +15,7 @@
     "@junhadex/core": "workspace:*",
     "@junhadex/theme-brutalism": "workspace:*",
     "@junhadex/theme-neutral": "workspace:*",
+    "@junhadex/theme-tactile-surface": "workspace:*",
     "@junhadex/tokens": "workspace:*",
     "react": "catalog:",
     "react-dom": "catalog:"

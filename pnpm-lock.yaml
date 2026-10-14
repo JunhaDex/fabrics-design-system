@@ -80,6 +80,9 @@ importers:
       '@junhadex/theme-neutral':
         specifier: workspace:*
         version: link:../../themes/neutral
+      '@junhadex/theme-tactile-surface':
+        specifier: workspace:*
+        version: link:../../themes/tactile-surface
       '@junhadex/tokens':
         specifier: workspace:*
         version: link:../../packages/tokens
@@ -232,6 +235,16 @@ importers:
         version: 5.5.5
 
   themes/neutral:
+    dependencies:
+      '@junhadex/tokens':
+        specifier: workspace:*
+        version: link:../../packages/tokens
+    devDependencies:
+      style-dictionary:
+        specifier: 'catalog:'
+        version: 5.5.5
+
+  themes/tactile-surface:
     dependencies:
       '@junhadex/tokens':
         specifier: workspace:*
