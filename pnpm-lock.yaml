@@ -74,6 +74,9 @@ importers:
       '@junhadex/core':
         specifier: workspace:*
         version: link:../../packages/core
+      '@junhadex/theme-brutalism':
+        specifier: workspace:*
+        version: link:../../themes/brutalism
       '@junhadex/theme-neutral':
         specifier: workspace:*
         version: link:../../themes/neutral
@@ -213,6 +216,16 @@ importers:
         version: 8.70.1(eslint@10.11.0(jiti@2.7.0))(typescript@6.0.3)
 
   packages/tokens:
+    devDependencies:
+      style-dictionary:
+        specifier: 'catalog:'
+        version: 5.5.5
+
+  themes/brutalism:
+    dependencies:
+      '@junhadex/tokens':
+        specifier: workspace:*
+        version: link:../../packages/tokens
     devDependencies:
       style-dictionary:
         specifier: 'catalog:'

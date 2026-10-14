@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@junhadex/core": "workspace:*",
+    "@junhadex/theme-brutalism": "workspace:*",
     "@junhadex/theme-neutral": "workspace:*",
     "@junhadex/tokens": "workspace:*",
     "react": "catalog:",

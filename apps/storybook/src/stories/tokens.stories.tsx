@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite'
 import type { CSSProperties } from 'react'
 import { expect, within } from 'storybook/test'
 import { contrast } from './contrast'
+import { slotPx } from './slot'
 
 const colors = [
   'surface',
@@ -242,12 +243,12 @@ export const Density: StoryObj = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
     const style = getComputedStyle(canvas.getByTestId('cell'))
-    await expect(style.paddingLeft).toBe('16px')
-    await expect(style.paddingTop).toBe('8px')
+    await expect(style.paddingLeft).toBe(`${slotPx('spacing-cell-x')}px`)
+    await expect(style.paddingTop).toBe(`${slotPx('spacing-cell-y')}px`)
 
     const bar = getComputedStyle(canvas.getByTestId('bar'))
-    await expect(bar.height).toBe('56px')
-    await expect(bar.width).toBe('224px')
+    await expect(bar.height).toBe(`${slotPx('spacing-bar')}px`)
+    await expect(bar.width).toBe(`${slotPx('spacing-nav')}px`)
   },
 }
 

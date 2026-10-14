@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { expect, within } from 'storybook/test'
 import { BentoGrid, type BentoItem } from '@junhadex/core'
+import { slotPx } from './slot'
 
 const tile = (label: string) => (
   <div className="h-full rounded-surface bg-surface-raised p-4" data-testid={label}>
@@ -26,9 +27,8 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-/** 행 최소 높이 10rem, 간격 stack 슬롯(1rem). */
+/** 행 최소 높이 10rem. 간격은 stack 슬롯이라 테마마다 다르다. */
 const ROW = 160
-const GAP = 16
 
 const box = (canvas: HTMLElement, label: string) =>
   within(canvas).getByTestId(label).parentElement!.getBoundingClientRect()
@@ -41,8 +41,9 @@ export const Wide: Story = {
     </div>
   ),
   play: async ({ canvasElement }) => {
-    // 4열: (848 - 3 × 16) / 4 = 200
-    const cell = 200
+    const GAP = slotPx('spacing-stack')
+    // 4열: (848 - 3 × 간격) / 4
+    const cell = (848 - 3 * GAP) / 4
     const today = box(canvasElement, '오늘의 코디')
     await expect(today.width).toBe(cell * 2 + GAP)
     await expect(today.height).toBe(ROW * 2 + GAP)
@@ -60,6 +61,7 @@ export const Narrow: Story = {
     </div>
   ),
   play: async ({ canvasElement }) => {
+    const GAP = slotPx('spacing-stack')
     await expect(box(canvasElement, '오늘의 코디').width).toBe(400)
     await expect(box(canvasElement, '통계').width).toBe(400)
     await expect(box(canvasElement, '날씨').width).toBe((400 - GAP) / 2)

@@ -3,6 +3,7 @@ import { expect, within } from 'storybook/test'
 import { BottomTabBar, SideNav, TopBar } from '@junhadex/core'
 import { contrast } from './contrast'
 import { eachMode, navItems, TestLink } from './nav-items'
+import { slotPx } from './slot'
 
 const meta = {
   title: 'Core/SideNav',
@@ -22,10 +23,10 @@ export const Default: Story = {
     await expect(links.map((l) => l.getAttribute('aria-current'))).toEqual([null, 'page', null])
 
     const style = getComputedStyle(nav)
-    await expect(style.width).toBe('224px')
+    await expect(style.width).toBe(`${slotPx('spacing-nav')}px`)
     await expect(style.position).toBe('sticky')
     // TopBar 아래에 붙는다(sem.spacing.bar).
-    await expect(style.top).toBe('56px')
+    await expect(style.top).toBe(`${slotPx('spacing-bar')}px`)
     await expect(links[0].querySelector('svg')!.getBoundingClientRect().width).toBe(20)
 
     // 활성 항목은 면 색 외에 굵기로도 구분된다.
